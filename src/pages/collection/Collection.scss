@@ -1,0 +1,15 @@
+@import "../../assets/scss/index.scss";
+
+.collection {
+	&-header {
+		@include flex-space-between;
+		h1 {
+			font-size: 1.2rem;
+			text-transform: uppercase;
+		}
+	}
+
+	&-create-btns {
+		@include flex-space-between;
+	}
+}
