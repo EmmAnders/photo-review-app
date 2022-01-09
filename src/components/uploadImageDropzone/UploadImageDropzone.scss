@@ -1,0 +1,13 @@
+@import "../../assets/scss/index.scss";
+
+.dropzone-container {
+	@include desktop {
+		display: block;
+	}
+	display: none;
+	border: 2px dashed $light-grey;
+	padding: $space-unit;
+	p {
+		text-align: center;
+	}
+}
