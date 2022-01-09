@@ -1,37 +1,31 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
-import "./Signup.scss";
 
-const Signup = () => {
-	const { signup, setUser, user } = useAuthContext();
+const Login = () => {
+	const { login } = useAuthContext();
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [passwordConfirmation, setPasswordConfirmation] = useState("");
 	const [error, setError] = useState(null);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		if (password !== passwordConfirmation) {
-			return setError("Oh no! Your passwords don't match.");
-		}
-
 		setError(null);
 
 		try {
-			await signup(email, password);
+			await login(email, password);
 			navigate("/");
 		} catch (e) {
 			setError(e.message);
 			console.log(e.message);
+			console.log(email);
 		}
 	};
 
 	return (
 		<form className="form" onSubmit={handleSubmit}>
-			<h2>Signup</h2>
+			<h2>Login</h2>
 			<p>{error}</p>
 			<label>
 				<span>Email</span>
@@ -43,7 +37,7 @@ const Signup = () => {
 				/>
 			</label>
 			<label>
-				<span>Pick a password</span>
+				<span>Your password</span>
 				<input
 					required
 					type="password"
@@ -51,22 +45,12 @@ const Signup = () => {
 					value={password}
 				/>
 			</label>
-
-			<label>
-				<span>Password Confirmation</span>
-				<input
-					required
-					type="password"
-					onChange={(e) => setPasswordConfirmation(e.target.value)}
-					value={passwordConfirmation}
-				/>
-			</label>
-			<button type="submit">Signup</button>
+			<button type="submit">Login</button>
 			<p className="form-redirect">
-				Already have an account? <Link to="/login">Log In</Link>{" "}
+				Don't have an account? <Link to="/signup">Signup</Link>{" "}
 			</p>
 		</form>
 	);
 };
 
-export default Signup;
+export default Login;

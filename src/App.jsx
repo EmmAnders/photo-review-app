@@ -1,17 +1,48 @@
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./assets/scss/index.scss";
+import "./App.scss";
 
 // Route imports
-import Home from "./pages/home/Home";
-import Signup from "./pages/signup/Signup";
+import { Collections, Collection, Signup, Login } from "./pages/index.js";
+import {
+	RequireAuth,
+	TopNavigation,
+	SideNavigation,
+} from "./components/index.js";
 
 function App() {
 	return (
-		<div className="App">
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="signup" element={<Signup />} />
-			</Routes>
+		<div className="site-wrapper">
+			<header>
+				<TopNavigation />
+			</header>
+
+			<nav>
+				<SideNavigation />
+			</nav>
+			<main>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<RequireAuth redirectTo="/login">
+								<Collections />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="/collection/:id"
+						element={
+							<RequireAuth redirectTo="/login">
+								<Collection />
+							</RequireAuth>
+						}
+					/>
+
+					<Route path="signup" element={<Signup />} />
+					<Route path="login" element={<Login />} />
+				</Routes>
+			</main>
 		</div>
 	);
 }
