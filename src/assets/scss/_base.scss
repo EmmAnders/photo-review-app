@@ -1,0 +1,114 @@
+@import "./variables";
+@import "./mixins";
+@import "./breakpoints";
+
+body > #root {
+	height: 100vh;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	@include fluid-typography(12, 24, 300, 1500);
+}
+
+body {
+	padding: 0;
+	margin: 0 auto;
+	scroll-behavior: smooth;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: $primary-font;
+}
+
+ul,
+ol,
+li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	cursor: pointer;
+	color: $black;
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	margin-bottom: $baseline;
+	font-weight: 400;
+}
+
+p {
+	line-height: $baseline;
+	margin-bottom: $baseline;
+}
+
+input {
+	box-sizing: border-box;
+	width: 100%;
+	height: $space-lg;
+	padding: 0rem $space-sm;
+	border: 1px solid $light-grey;
+	outline: none;
+	color: $black;
+	line-height: $baseline;
+	/* transition: border-color 0.3s ease-in 0s; */
+	background-color: $white;
+}
+
+button {
+	font-family: inherit;
+	font-size: 100%;
+	line-height: $baseline;
+	margin: 0;
+	outline: none;
+	border: none;
+	overflow: visible;
+	text-transform: none;
+	width: 100%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.form {
+	&-redirect {
+		text-align: center;
+	}
+
+	label {
+		@include flex-column;
+		margin-bottom: $space-unit;
+
+		span {
+			margin-bottom: $space-sm;
+			font-weight: 400;
+			line-height: $baseline;
+		}
+	}
+
+	button {
+		@include primary-button;
+	}
+}
+
+.loading {
+	@include flex-center;
+	width: 100%;
+	height: 100%;
+}
+
+.primary-button {
+	@include primary-button;
+}
+
+.disabled-button {
+	@include disabled-button;
+}
