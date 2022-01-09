@@ -1,0 +1,13 @@
+@import "../../assets/scss/index.scss";
+
+.image-grid {
+	display: grid;
+	grid-template-columns: auto auto auto;
+
+	&-items {
+		img {
+			width: 90px;
+			height: auto;
+		}
+	}
+}
