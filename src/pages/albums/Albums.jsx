@@ -9,38 +9,36 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useCollection } from "../../hooks/useCollection";
 
 //Component imports
-import { Modal, CollectionForm, CollectionList } from "../../components/index";
+import { Modal, AlbumForm, AlbumList } from "../../components/index";
 
 //Styles
-import "./Collections.scss";
+import "./Albums.scss";
 
-const Collections = () => {
+const Albums = () => {
+	const navigate = useNavigate();
 	const { user } = useAuthContext();
 	const { openModal, setOpenModal } = useCollectionContext();
-
-	const { documents } = useCollection("photoCollections", [
-		"uid",
-		"==",
-		user.uid,
-	]);
+	const { documents } = useCollection("photoAlbums", ["uid", "==", user.uid]);
 
 	return (
 		<section className="collections">
 			<div className="collections-create-btn">
 				<button onClick={() => setOpenModal(true)}>
-					Create new collection
+					Create new Album
 				</button>
 			</div>
 
 			<div>
-				{documents && <CollectionList photoCollections={documents} />}
+				{documents && (
+					<AlbumList route={"album"} photoAlbums={documents} />
+				)}
 			</div>
 
 			{openModal && (
 				<>
 					<Modal
-						title="Create Collection"
-						body={<CollectionForm />}
+						title="Create Album"
+						body={<AlbumForm />}
 						close={() => setOpenModal(false)}
 					/>
 				</>
@@ -49,4 +47,4 @@ const Collections = () => {
 	);
 };
 
-export default Collections;
+export default Albums;

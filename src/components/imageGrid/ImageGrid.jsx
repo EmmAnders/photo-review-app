@@ -1,48 +1,38 @@
+import Masonry from "react-masonry-css";
 import { SRLWrapper } from "simple-react-lightbox";
+
+//Context imports
 import { useCollectionContext } from "../../contexts/CollectionContext";
+
 /* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
  */
 import "./ImageGrid.scss";
 
+const masonryBreakpoints = {
+	default: 4,
+	576: 3,
+	768: 4,
+	992: 5,
+};
+
 const ImageGrid = (props) => {
-	const { checkedImages, setCheckedImages } = useCollectionContext();
-
-	const handleCheckedImages = (imageUrl, name, path, size, type) => {
-		let newImage = {
-			name: name,
-			path: path,
-			size: size,
-			type: type,
-			url: imageUrl,
-		};
-
-		const imageExist = checkedImages.find(
-			(item) => item.url == newImage.url
-		);
-
-		if (imageExist) {
-			let image = checkedImages.filter(
-				(item) => item.url !== newImage.url
-			);
-			setCheckedImages(image);
-		} else {
-			setCheckedImages([newImage, ...checkedImages]);
-		}
-	};
-	console.log(checkedImages);
-
+	const { handleSelectedImages } = useCollectionContext();
 	return (
 		<>
 			{props.loading && <p>Loading..</p>}
 			{props.document && (
-				<div className="image-grid">
-					{props.document.images.map((img, index) => (
-						<SRLWrapper>
+				<SRLWrapper>
+					<Masonry
+						breakpointCols={masonryBreakpoints}
+						className="masonry-grid"
+						columnClassName="masonry-grid_column"
+					>
+						{props.document.images.map((img, index) => (
 							<div
-								className="image-grid-items"
+								key={index}
 								onClick={() =>
-									handleCheckedImages(
+									handleSelectedImages(
 										img.url,
 										img.name,
 										img.path,
@@ -50,13 +40,13 @@ const ImageGrid = (props) => {
 										img.type
 									)
 								}
-								key={index}
 							>
 								<img src={img.url} />
+								<div>{props.icons}</div>
 							</div>
-						</SRLWrapper>
-					))}
-				</div>
+						))}
+					</Masonry>
+				</SRLWrapper>
 			)}
 			;
 		</>

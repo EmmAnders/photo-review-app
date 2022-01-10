@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 
 export const useCollection = (col, _q) => {
+	const [loading, setLoading] = useState(true);
 	const [documents, setDocuments] = useState(null);
 
 	const q = useRef(_q).current;
@@ -29,10 +30,11 @@ export const useCollection = (col, _q) => {
 				results.push({ ...doc.data(), id: doc.id });
 			});
 			setDocuments(results);
+			setLoading(false);
 		});
 
 		return () => unsub();
 	}, [col]);
 
-	return { documents };
+	return { documents, loading };
 };

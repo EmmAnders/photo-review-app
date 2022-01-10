@@ -3,7 +3,15 @@ import "./assets/scss/index.scss";
 import "./App.scss";
 
 // Route imports
-import { Collections, Collection, Signup, Login } from "./pages/index.js";
+import {
+	Albums,
+	Album,
+	ReviewAlbum,
+	ReviewedAlbums,
+	ReviewedAlbum,
+	Signup,
+	Login,
+} from "./pages/index.js";
 import {
 	RequireAuth,
 	TopNavigation,
@@ -26,19 +34,49 @@ function App() {
 						path="/"
 						element={
 							<RequireAuth redirectTo="/login">
-								<Collections />
+								<Albums />
 							</RequireAuth>
 						}
 					/>
 					<Route
-						path="/collection/:id"
+						path="/albums"
 						element={
 							<RequireAuth redirectTo="/login">
-								<Collection />
+								<Albums />
 							</RequireAuth>
 						}
 					/>
 
+					<Route
+						path="album/:id"
+						element={
+							<RequireAuth redirectTo="/login">
+								<Album />
+							</RequireAuth>
+						}
+					/>
+
+					<Route
+						path="reviewed-albums"
+						element={
+							<RequireAuth redirectTo="/login">
+								<ReviewedAlbums />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="reviewed-album/:id"
+						element={
+							<RequireAuth redirectTo="/login">
+								<ReviewedAlbum />
+							</RequireAuth>
+						}
+					/>
+
+					<Route
+						path="review-album/:documentId/:linkId"
+						element={<ReviewAlbum />}
+					/>
 					<Route path="signup" element={<Signup />} />
 					<Route path="login" element={<Login />} />
 				</Routes>

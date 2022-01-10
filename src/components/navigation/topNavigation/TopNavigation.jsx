@@ -19,7 +19,7 @@ const TopNavigation = () => {
 	return (
 		<>
 			<div className="logo">
-				<Link to="/">LOGO</Link>
+				<Link to="/albums">LOGO</Link>
 			</div>
 			{user ? (
 				<div onClick={handleLogout}>Logout</div>

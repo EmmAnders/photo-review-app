@@ -10,43 +10,45 @@ import { useDocument } from "../../hooks/useDocument";
 import {
 	ImageGrid,
 	Modal,
-	CollectionForm,
+	AlbumForm,
 	UploadImageDropzone,
 } from "../../components/index";
 
 //Styles
-import "./Collection.scss";
+import "./Album.scss";
 
-const Collection = () => {
-	const { checkedImages, openModal, setOpenModal } = useCollectionContext();
+const Album = () => {
+	const { selectedImages, openModal, setOpenModal } = useCollectionContext();
 	const { id } = useParams();
-	const { document, loading } = useDocument("photoCollections", id);
+	const { document, loading } = useDocument("photoAlbums", id);
 
 	return (
 		<div className="collection">
 			{document && (
 				<div className="collection-header">
-					<h1>Collection/{document.name}</h1>
-					<p>Copy link</p>
+					<h1>Album/{document.name}</h1>
+					<p>
+						/review-album/{id}/{document.shareableLink}
+					</p>
 				</div>
 			)}
 
 			<div className="collection-create-btns">
 				<button className="primary-button">Upload</button>
-				{checkedImages.length > 0 && (
+				{selectedImages.length > 0 && (
 					<button
 						className="primary-button"
 						onClick={() => setOpenModal(true)}
 					>
-						Create new collection ({checkedImages.length})
+						Create new Album ({selectedImages.length})
 					</button>
 				)}
 			</div>
 
 			{openModal && (
 				<Modal
-					title="Create Collection"
-					body={<CollectionForm />}
+					title="Create Album"
+					body={<AlbumForm />}
 					close={() => setOpenModal(false)}
 				/>
 			)}
@@ -57,4 +59,4 @@ const Collection = () => {
 	);
 };
 
-export default Collection;
+export default Album;

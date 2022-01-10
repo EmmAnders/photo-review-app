@@ -2,21 +2,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useCollectionContext } from "../../contexts/CollectionContext";
+import { v4 as uuidv4 } from "uuid";
 
 //Firebase imports
 import { db } from "../../firebase/config";
-import {
-	collection,
-	addDoc,
-	serverTimestamp,
-	arrayUnion,
-} from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const CollectionForm = (props) => {
 	const { user } = useAuthContext();
 	const {
-		checkedImages,
-		setCheckedImages,
+		selectedImages,
+		setSelectedImages,
 		setOpenModal,
 	} = useCollectionContext();
 
@@ -27,14 +23,15 @@ const CollectionForm = (props) => {
 		e.preventDefault();
 
 		if (!newCollection == " ") {
-			await addDoc(collection(db, "photoCollections"), {
+			await addDoc(collection(db, "photoAlbums"), {
 				name: newCollection,
 				timestamp: serverTimestamp(),
 				uid: user.uid,
-				images: checkedImages,
+				images: selectedImages,
+				shareableLink: uuidv4() + "-" + uuidv4(),
 			});
 		}
-		setCheckedImages([]);
+		setSelectedImages([]);
 		setOpenModal(false);
 		navigate("/");
 	};
@@ -44,7 +41,7 @@ const CollectionForm = (props) => {
 				<span>Name</span>
 				<input
 					required
-					placeholder="Collection name"
+					placeholder="Album name"
 					type="text"
 					onChange={(e) => setNewCollection(e.target.value)}
 					value={newCollection}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+
 import { useAuthContext } from "../contexts/AuthContext";
 
 //firebase imports
@@ -45,7 +45,7 @@ const useUploadImages = () => {
 			await uploadTask.then();
 
 			const downloadUrl = await getDownloadURL(storageRef);
-			const documentRef = doc(db, "photoCollections", documentId);
+			const documentRef = doc(db, "photoAlbums", documentId);
 
 			await updateDoc(documentRef, {
 				images: arrayUnion({

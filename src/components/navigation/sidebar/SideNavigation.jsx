@@ -14,9 +14,9 @@ const SideNavigation = () => {
 							className={(navData) =>
 								navData.isActive ? "active" : ""
 							}
-							to="/"
+							to="/albums"
 						>
-							Collections
+							Albums
 						</NavLink>
 					</li>
 					<li>
@@ -24,9 +24,9 @@ const SideNavigation = () => {
 							className={(navData) =>
 								navData.isActive ? "active" : ""
 							}
-							to="/reviewed-collections"
+							to="/reviewed-albums"
 						>
-							Reviewed Collections
+							Reviewed Albums
 						</NavLink>
 					</li>
 				</ul>

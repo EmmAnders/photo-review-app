@@ -7,10 +7,39 @@ const useCollectionContext = () => {
 };
 
 const CollectionContextProvider = ({ children }) => {
-	const [checkedImages, setCheckedImages] = useState([]);
+	const [selectedImages, setSelectedImages] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
-	
-	const values = { checkedImages, setCheckedImages, openModal, setOpenModal };
+
+	const handleSelectedImages = (imageUrl, name, path, size, type) => {
+		let imgObj = {
+			name: name,
+			path: path,
+			size: size,
+			type: type,
+			url: imageUrl,
+		};
+
+		const imageExist = selectedImages.find(
+			(item) => item.url == imgObj.url
+		);
+
+		if (imageExist) {
+			let image = selectedImages.filter(
+				(item) => item.url !== imgObj.url
+			);
+			setSelectedImages(image);
+		} else {
+			setSelectedImages([imgObj, ...selectedImages]);
+		}
+	};
+
+	const values = {
+		handleSelectedImages,
+		selectedImages,
+		setSelectedImages,
+		openModal,
+		setOpenModal,
+	};
 
 	return (
 		<CollectionContext.Provider value={values}>

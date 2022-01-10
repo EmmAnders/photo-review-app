@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -8,8 +9,8 @@ import useUploadImages from "../../hooks/useUploadImages";
 import "./UploadImageDropzone.scss";
 
 const UploadImageDropzone = () => {
+	const { id } = useParams();
 	const uploadImages = useUploadImages();
-
 	const onDrop = useCallback((acceptedFiles) => {
 		if (!acceptedFiles.length) {
 			return;
@@ -44,9 +45,9 @@ const UploadImageDropzone = () => {
 					<p>Drop photos here</p>
 				)}
 			</div>
-			{/* 	{uploadImages.progress !== null && <p>{uploadImages.progress}</p>}
+			{uploadImages.progress !== null && <p>{uploadImages.progress}</p>}
 			{uploadImages.isError && <p>{uploadImages.error}</p>}
-			{uploadImages.isSuccess && <p>{uploadImages.success}</p>} */}
+			{uploadImages.isSuccess && <p>{uploadImages.success}</p>}
 		</>
 	);
 };
