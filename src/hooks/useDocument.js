@@ -8,7 +8,6 @@ export const useDocument = (col, id) => {
 
 	useEffect(() => {
 		setLoading(true);
-
 		const ref = doc(db, col, id);
 		const unsub = onSnapshot(ref, (snapshot) => {
 			if (!snapshot.exists()) {
