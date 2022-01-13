@@ -12,13 +12,13 @@ import "./SideNavigation.scss";
 
 const SideNavigation = () => {
 	const { user } = useAuthContext();
-	const { openModal, setOpenModal } = useCollectionContext();
+	const { openCreateAlbum, setOpenCreateAlbum } = useCollectionContext();
 	return (
 		<>
 			{user && (
 				<ul className="site-sidebar">
 					<li className="site-sidebar-create-btn">
-						<button onClick={() => setOpenModal(true)}>
+						<button onClick={() => setOpenCreateAlbum(true)}>
 							<FontAwesomeIcon
 								className="site-sidebar-create-btn-plus-icon"
 								icon={faPlus}
@@ -49,12 +49,12 @@ const SideNavigation = () => {
 				</ul>
 			)}
 
-			{openModal && (
+			{openCreateAlbum && (
 				<>
 					<Modal
 						title="Create Album"
 						body={<AlbumForm />}
-						close={() => setOpenModal(false)}
+						close={() => setOpenCreateAlbum(false)}
 					/>
 				</>
 			)}

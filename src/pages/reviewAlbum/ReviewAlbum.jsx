@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-//Context imports
-/* import { useCollectionContext } from "../../contexts/CollectionContext";
- */
-
 //Firebase imports
 import { db } from "../../firebase/config";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -23,7 +19,13 @@ import {
 	UploadImageDropzone,
 	Loader,
 } from "../../components/index";
-/* import  */ import "./ReviewAlbum.scss";
+
+//Styles
+import "./ReviewAlbum.scss";
+
+//Icon imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 const ReviewAlbum = () => {
 	const { /*  documentId, */ linkId } = useParams();
@@ -173,7 +175,7 @@ const ReviewAlbum = () => {
 					className="customer-selection-summary-btn"
 				>
 					{openSummary ? (
-						<p>close</p>
+						<p>Close</p>
 					) : (
 						<p>Summary ({selected.length + "/" + totalImages})</p>
 					)}
@@ -188,27 +190,32 @@ const ReviewAlbum = () => {
 							}}
 						>
 							<h3>Favorites</h3>
-
 							<Grid>
 								{selected &&
 									selected.map((img, index) => (
-										<img
-											key={index}
-											src={img.url}
-											onClick={() =>
-												handleReview(
-													img.url,
-													img.name,
-													img.path,
-													img.size,
-													img.type,
-													selected,
-													setSelected,
-													images,
-													setImages
-												)
-											}
-										></img>
+										<div>
+											<img
+												key={index}
+												src={img.url}
+											></img>
+											<p
+												onClick={() =>
+													handleReview(
+														img.url,
+														img.name,
+														img.path,
+														img.size,
+														img.type,
+														selected,
+														setSelected,
+														images,
+														setImages
+													)
+												}
+											>
+												regret
+											</p>
+										</div>
 									))}
 							</Grid>
 						</div>
@@ -226,23 +233,26 @@ const ReviewAlbum = () => {
 								<Grid>
 									{unselected &&
 										unselected.map((img, index) => (
-											<img
-												key={index}
-												src={img.url}
-												onClick={() =>
-													handleReview(
-														img.url,
-														img.name,
-														img.path,
-														img.size,
-														img.type,
-														unselected,
-														setUnselected,
-														images,
-														setImages
-													)
-												}
-											></img>
+											<>
+												<img
+													key={index}
+													src={img.url}
+													onClick={() =>
+														handleReview(
+															img.url,
+															img.name,
+															img.path,
+															img.size,
+															img.type,
+															unselected,
+															setUnselected,
+															images,
+															setImages
+														)
+													}
+												></img>
+												regret
+											</>
 										))}
 								</Grid>
 							</div>

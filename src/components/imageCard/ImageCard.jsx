@@ -1,6 +1,6 @@
 import "./ImageCard.scss";
 
-const ImageCard = ({ select, image /* activeId, */, activeClass }) => {
+const ImageCard = ({ select, image, activeClass }) => {
 	return (
 		<div className={`image-card ${activeClass}`}>
 			<label className="checkbox">
