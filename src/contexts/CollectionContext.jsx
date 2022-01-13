@@ -10,6 +10,8 @@ const CollectionContextProvider = ({ children }) => {
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
 	const [activeCardElement, setActiveCardElement] = useState(null);
+	const [currentAlbumId, setCurrentAlbumId] = useState(null);
+	const [updatedName, setUpdatedName] = useState("");
 
 	const handleSelectedImages = (imageUrl, name, path, size, type, index) => {
 		setActiveCardElement(index);
@@ -44,6 +46,10 @@ const CollectionContextProvider = ({ children }) => {
 		setActiveCardElement,
 		openModal,
 		setOpenModal,
+		currentAlbumId,
+		setCurrentAlbumId,
+		updatedName,
+		setUpdatedName,
 	};
 
 	return (
