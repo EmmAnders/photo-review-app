@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 //Context imports
@@ -7,6 +7,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 
 //Hooks imports
 import { useCollection } from "../../hooks/useCollection";
+import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 //Component imports
 import { Modal, AlbumForm, AlbumList } from "../../components/index";
@@ -17,32 +18,37 @@ import "./Albums.scss";
 const Albums = () => {
 	const navigate = useNavigate();
 	const { user } = useAuthContext();
-	const { openModal, setOpenModal } = useCollectionContext();
+	const { updatedName, currentAlbumId } = useCollectionContext();
 	const { documents } = useCollection("photoAlbums", ["uid", "==", user.uid]);
+	/* const updateAlbum = useUpdateDocument(); */
 
+	useEffect(() => {
+		console.log(currentAlbumId);
+	}, [currentAlbumId]);
+
+	/* const handleEditName = (e) => {
+		e.preventDefault();
+
+		if (!updateAlbum.isLoading) {
+			updateAlbum.updateDocument(updatedName, "photoAlbums", id);
+			console.log("success");
+		}
+		console.log("fail");
+	};
+ */
 	return (
-		<section className="collections">
-			{/* 	<div className="collections-create-btn">
-				<button onClick={() => setOpenModal(true)}>
-					Create new Album
-				</button>
-			</div> */}
-
+		<section className="albums">
 			<div>
+				{/* {updateAlbum.isLoading && <p>loading</p>}
+				{updateAlbum.error && <p>Error</p>} */}
 				{documents && (
-					<AlbumList route={"album"} photoAlbums={documents} />
+					<AlbumList
+						route={"album"}
+						photoAlbums={documents}
+						/* 	handleEditName={handleEditName} */
+					/>
 				)}
 			</div>
-
-			{/* 	{openModal && (
-				<>
-					<Modal
-						title="Create Album"
-						body={<AlbumForm />}
-						close={() => setOpenModal(false)}
-					/>
-				</>
-			)} */}
 		</section>
 	);
 };
