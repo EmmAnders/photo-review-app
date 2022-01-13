@@ -25,7 +25,7 @@ import "./ReviewAlbum.scss";
 
 //Icon imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { faUndo } from "@fortawesome/free-solid-svg-icons";
 
 const ReviewAlbum = () => {
 	const { /*  documentId, */ linkId } = useParams();
@@ -193,12 +193,12 @@ const ReviewAlbum = () => {
 							<Grid>
 								{selected &&
 									selected.map((img, index) => (
-										<div>
+										<div className="img-wrapper">
 											<img
 												key={index}
 												src={img.url}
 											></img>
-											<p
+											<FontAwesomeIcon
 												onClick={() =>
 													handleReview(
 														img.url,
@@ -212,9 +212,9 @@ const ReviewAlbum = () => {
 														setImages
 													)
 												}
-											>
-												regret
-											</p>
+												icon={faUndo}
+												className="regret-icon"
+											></FontAwesomeIcon>
 										</div>
 									))}
 							</Grid>
@@ -233,10 +233,12 @@ const ReviewAlbum = () => {
 								<Grid>
 									{unselected &&
 										unselected.map((img, index) => (
-											<>
+											<div className="img-wrapper">
 												<img
 													key={index}
 													src={img.url}
+												></img>
+												<FontAwesomeIcon
 													onClick={() =>
 														handleReview(
 															img.url,
@@ -250,9 +252,10 @@ const ReviewAlbum = () => {
 															setImages
 														)
 													}
-												></img>
-												regret
-											</>
+													icon={faUndo}
+													className="regret-icon"
+												></FontAwesomeIcon>
+											</div>
 										))}
 								</Grid>
 							</div>

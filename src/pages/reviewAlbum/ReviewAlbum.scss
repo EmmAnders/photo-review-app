@@ -41,9 +41,19 @@
 
 		&-selected,
 		&-unselected {
-			img {
+			.img-wrapper {
+				display: flex;
+				flex-direction: column;
 				width: 90px;
-				height: 90px;
+
+				img {
+					width: 90px;
+					height: 90px;
+				}
+				.regret-icon {
+					margin: 0 auto;
+					margin-top: $space-xs;
+				}
 			}
 		}
 		.save-selection {

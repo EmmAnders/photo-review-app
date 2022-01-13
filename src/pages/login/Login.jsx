@@ -17,13 +17,15 @@ const Login = () => {
 			await login(email, password);
 		} catch (e) {
 			setError(e.message);
-			console.log(e.message);
-			console.log(email);
 		}
 	};
 
 	return (
-		<form className="form" onSubmit={handleSubmit}>
+		<form
+			className="form"
+			style={{ width: "50%", margin: "0 auto" }}
+			onSubmit={handleSubmit}
+		>
 			<h2>Login</h2>
 			<p>{error}</p>
 			<label>
@@ -44,7 +46,9 @@ const Login = () => {
 					value={password}
 				/>
 			</label>
-			<button type="submit">Login</button>
+			<button type="submit" className="primary-button">
+				Login
+			</button>
 			<p className="form-redirect">
 				Don't have an account? <Link to="/signup">Signup</Link>{" "}
 			</p>

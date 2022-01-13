@@ -52,7 +52,7 @@ input {
 	width: 100%;
 	height: $space-lg;
 	padding: 0rem $space-sm;
-	border: 1px solid $light-grey;
+	border: 1px solid $grey;
 	outline: none;
 	color: $black;
 	line-height: $baseline;
@@ -72,6 +72,9 @@ button {
 	cursor: pointer;
 	margin: 0px;
 	padding: 0px;
+}
+
+.modal {
 }
 
 .form {
