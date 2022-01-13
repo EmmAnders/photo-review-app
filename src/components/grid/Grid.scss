@@ -4,15 +4,15 @@
 	width: 100%;
 	display: grid;
 	align-items: center;
-	grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 	gap: $space-lg;
 
 	@include tablet {
-		grid-template-columns: repeat(auto-fit, minmax(1vw, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
 	}
 
 	@include desktop {
-		grid-template-columns: repeat(6, minmax(12vh, 1fr));
+		grid-template-columns: repeat(6, minmax(8vh, 1fr));
 		gap: $space-unit;
 	}
 }
