@@ -157,27 +157,20 @@ const ReviewAlbum = () => {
 						))}
 				</MasonryGrid>
 			</section>
+
 			<section
 				style={{
-					bottom: !openSummary ? "-70vh" : "0",
-					height: selected.length < 1 ? "20vh" : "70vh",
+					height: !openSummary ? "0" : "70vh",
 				}}
 				className="customer-selection-summary"
 			>
 				{selected.length < 1 && unselected.length < 1 && (
-					<p>0 selected images </p>
+					<p className="selection-msg">0 selected images </p>
 				)}
 
 				<button
 					onClick={handleOpenSummary}
 					className="customer-selection-summary-btn"
-					id="sm"
-					style={{
-						bottom:
-							selected.length < 1 && unselected.length < 1
-								? "20vh"
-								: "70vh",
-					}}
 				>
 					{openSummary ? (
 						<p>close</p>
@@ -220,45 +213,49 @@ const ReviewAlbum = () => {
 							</Grid>
 						</div>
 					)}
-
 					{openSummary && (
-						<div
-							style={{
-								display:
-									selected.length < 1 ? "none" : "static",
-							}}
-							className="customer-selection-summary-unselected"
-						>
-							<h3>Unselected</h3>
-							<Grid>
-								{unselected &&
-									unselected.map((img, index) => (
-										<img
-											key={index}
-											src={img.url}
-											onClick={() =>
-												handleReview(
-													img.url,
-													img.name,
-													img.path,
-													img.size,
-													img.type,
-													unselected,
-													setUnselected,
-													images,
-													setImages
-												)
-											}
-										></img>
-									))}
-							</Grid>
-						</div>
+						<>
+							<div
+								style={{
+									display:
+										selected.length < 1 ? "none" : "static",
+								}}
+								className="customer-selection-summary-unselected"
+							>
+								<h3>Unselected</h3>
+								<Grid>
+									{unselected &&
+										unselected.map((img, index) => (
+											<img
+												key={index}
+												src={img.url}
+												onClick={() =>
+													handleReview(
+														img.url,
+														img.name,
+														img.path,
+														img.size,
+														img.type,
+														unselected,
+														setUnselected,
+														images,
+														setImages
+													)
+												}
+											></img>
+										))}
+								</Grid>
+							</div>
+							<div className="save-selection">
+								<button
+									className="primary-button"
+									onClick={handleSubmit}
+								>
+									Save ({selected.length}/{totalImages})
+								</button>
+							</div>
+						</>
 					)}
-				</div>
-				<div className="save-selection">
-					<button className=" primary-button" onClick={handleSubmit}>
-						Save ({selected.length}/{totalImages})
-					</button>
 				</div>
 			</section>
 		</section>

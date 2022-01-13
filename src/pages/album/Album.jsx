@@ -30,11 +30,12 @@ const Album = (props) => {
 		handleSelectedImages,
 		selectedImages,
 		activeCardElement,
-		setActiveCardElement,
 		openModal,
 		setOpenModal,
 	} = useCollectionContext();
+
 	const { id } = useParams();
+	
 	const { document, loading } = useDocument("photoAlbums", id);
 	const [value, setValue] = useState("");
 	const [copied, setCopied] = useState(false);

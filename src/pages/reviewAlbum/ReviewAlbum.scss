@@ -12,6 +12,7 @@
 
 	&-summary {
 		width: 100%;
+		height: 70vh;
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -19,6 +20,16 @@
 		background: $white;
 		border: 1px solid $black;
 		padding: 0rem $space-md;
+
+		@include desktop {
+			right: 100%;
+		}
+
+		.selection-msg {
+			@include flex-center;
+			font-size: 1.3rem;
+			height: 100%;
+		}
 
 		&-selected {
 			padding-bottom: $space-unit;
@@ -39,14 +50,14 @@
 			position: absolute;
 			left: $space-unit;
 			right: $space-unit;
-			bottom: $space-sm;
+			bottom: $space-unit;
 		}
 	}
 
 	.customer-selection-summary-btn {
 		z-index: 1;
 		position: absolute;
-		bottom: 69.9vh;
+		bottom: 100%;
 		left: 50%;
 		right: 50%;
 		transform: translate(-50%, 0);
@@ -56,9 +67,13 @@
 		border-right: 1px solid $black;
 		border-top: 1px solid $black;
 		width: 50vw;
-	}
-}
 
-#sm {
-	bottom: 70vh;
+		@include desktop {
+			bottom: 50%;
+			left: 100%;
+			right: 100%;
+			/* 	transform: translateY(-50%, -50%, 0); */
+			transform: rotate(270deg);
+		}
+	}
 }
