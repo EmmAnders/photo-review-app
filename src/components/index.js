@@ -9,6 +9,7 @@ import Grid from "./grid/Grid";
 import ImageCard from "./imageCard/ImageCard";
 import RequireAuth from "./RequireAuth";
 import Loader from "./Loader";
+import Form from "./forms/Form";
 
 export {
 	TopNavigation,
@@ -22,4 +23,5 @@ export {
 	ImageCard,
 	RequireAuth,
 	Loader,
+	Form,
 };

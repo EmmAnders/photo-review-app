@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 //Component imports
-import { Modal, AlbumForm, AlbumList } from "../../index";
+import { Modal, AlbumForm } from "../../index";
 
 import "./SideNavigation.scss";
 
