@@ -9,8 +9,11 @@ const useCollectionContext = () => {
 const CollectionContextProvider = ({ children }) => {
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
+	const [activeCardElement, setActiveCardElement] = useState(null);
 
-	const handleSelectedImages = (imageUrl, name, path, size, type) => {
+	const handleSelectedImages = (imageUrl, name, path, size, type, index) => {
+		setActiveCardElement(index);
+
 		let imgObj = {
 			name: name,
 			path: path,
@@ -37,6 +40,8 @@ const CollectionContextProvider = ({ children }) => {
 		handleSelectedImages,
 		selectedImages,
 		setSelectedImages,
+		activeCardElement,
+		setActiveCardElement,
 		openModal,
 		setOpenModal,
 	};

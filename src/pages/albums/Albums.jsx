@@ -22,11 +22,11 @@ const Albums = () => {
 
 	return (
 		<section className="collections">
-			<div className="collections-create-btn">
+			{/* 	<div className="collections-create-btn">
 				<button onClick={() => setOpenModal(true)}>
 					Create new Album
 				</button>
-			</div>
+			</div> */}
 
 			<div>
 				{documents && (
@@ -34,7 +34,7 @@ const Albums = () => {
 				)}
 			</div>
 
-			{openModal && (
+			{/* 	{openModal && (
 				<>
 					<Modal
 						title="Create Album"
@@ -42,7 +42,7 @@ const Albums = () => {
 						close={() => setOpenModal(false)}
 					/>
 				</>
-			)}
+			)} */}
 		</section>
 	);
 };

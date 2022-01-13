@@ -3,7 +3,6 @@
 @import "./breakpoints";
 
 body > #root {
-	height: 100vh;
 }
 
 * {
@@ -11,13 +10,13 @@ body > #root {
 }
 
 html {
-	@include fluid-typography(12, 24, 300, 1500);
+	@include fluid-typography(12, 18, 300, 1500);
 }
 
 body {
 	padding: 0;
 	margin: 0 auto;
-	scroll-behavior: smooth;
+	scroll-behavior: auto;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-family: $primary-font;
@@ -46,11 +45,6 @@ h5 {
 	font-weight: 400;
 }
 
-p {
-	line-height: $baseline;
-	margin-bottom: $baseline;
-}
-
 input {
 	box-sizing: border-box;
 	width: 100%;
@@ -60,7 +54,6 @@ input {
 	outline: none;
 	color: $black;
 	line-height: $baseline;
-	/* transition: border-color 0.3s ease-in 0s; */
 	background-color: $white;
 }
 
@@ -68,7 +61,6 @@ button {
 	font-family: inherit;
 	font-size: 100%;
 	line-height: $baseline;
-	margin: 0;
 	outline: none;
 	border: none;
 	overflow: visible;
@@ -76,6 +68,8 @@ button {
 	width: 100%;
 	text-align: center;
 	cursor: pointer;
+	margin: 0px;
+	padding: 0px;
 }
 
 .form {
@@ -88,14 +82,14 @@ button {
 		margin-bottom: $space-unit;
 
 		span {
-			margin-bottom: $space-sm;
+			margin-bottom: $space-xs;
 			font-weight: 400;
 			line-height: $baseline;
 		}
-	}
 
-	button {
-		@include primary-button;
+		input {
+			margin-bottom: $space-sm;
+		}
 	}
 }
 

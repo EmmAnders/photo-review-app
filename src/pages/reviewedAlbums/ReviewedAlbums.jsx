@@ -1,6 +1,8 @@
 /* import { useState } from "react";
+
 import { useNavigate, Link } from "react-router-dom";
  */
+
 //Context imports
 /* import { useCollectionContext } from "../../contexts/CollectionContext"; */
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -10,6 +12,9 @@ import { useCollection } from "../../hooks/useCollection";
 
 //Component imports
 import { AlbumList } from "../../components/index";
+
+//Styles
+import "./ReviewedAlbums.scss";
 
 const ReviewedAlbums = () => {
 	const { user } = useAuthContext();

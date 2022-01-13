@@ -1,0 +1,108 @@
+@import "../../assets/scss/index.scss";
+
+.image-card {
+	width: 100%;
+	height: 100%;
+	@include desktop {
+		padding: $space-sm $space-md;
+
+		&:hover {
+			border: 1px solid $grey;
+		}
+	}
+
+	//card content
+	&-content {
+		.img-wrapper {
+			width: 100%;
+			height: 100%;
+
+			.img {
+				width: 100%;
+				height: 12vh;
+
+				@include tablet {
+					height: 10vh;
+				}
+				@include desktop {
+					height: 8vh;
+				}
+			}
+		}
+
+		p {
+			text-align: center;
+			padding: 0rem;
+			margin: 0rem;
+		}
+	}
+
+	.checkbox {
+		position: relative;
+		overflow: hidden;
+
+		.checkbox-input {
+			position: absolute;
+			top: -100%;
+			visibility: hidden;
+		}
+
+		.checkbox-circle {
+			cursor: pointer;
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			border: 1px solid $grey;
+			transition: background-color 300ms ease;
+			margin-bottom: $space-xs;
+		}
+
+		.checkbox-input:checked + .checkbox-circle {
+			border-color: $accent-primary;
+			background-color: $accent-primary;
+			position: relative;
+
+			&:after {
+				content: "";
+				@include absolute-center;
+				width: 10px;
+				height: 10px;
+				background-color: $accent-primary;
+				/* 	background: $accent-primary; */
+				border-radius: 50%;
+			}
+		}
+
+		@include desktop {
+			&:hover {
+				.checkbox-circle {
+					opacity: 1;
+				}
+			}
+
+			.checkbox-circle {
+				opacity: 0;
+			}
+
+			.checkbox-input:checked + .checkbox-circle {
+				opacity: 1;
+			}
+
+			.image-card-checkbox-checked + .checkbox-circle {
+				opacity: 1;
+				border: 1px solid $grey;
+			}
+		}
+	}
+}
+
+.image-card-checkbox-checked {
+	border: 1px solid $grey;
+
+	.checkbox {
+		.checkbox-circle {
+			opacity: 1;
+		}
+	}
+}

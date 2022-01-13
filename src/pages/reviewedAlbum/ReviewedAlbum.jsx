@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
 
 //Component imports
-import { ImageGrid } from "../../components/index";
+import { MasonryGrid } from "../../components/index";
 
 //Styles
 import "./ReviewedAlbum.scss";
@@ -20,7 +20,7 @@ const ReviewedAlbum = () => {
 					<h1>Album/{document.name}</h1>
 				</div>
 			)}
-			<ImageGrid document={document} loading={loading} />
+			<MasonryGrid document={document} loading={loading} />
 		</div>
 	);
 };

@@ -1,22 +1,64 @@
 @import "../../assets/scss/index.scss";
 
-.collection-review {
-	display: flex;
-
-	&-icons {
+.customer-selection {
+	.select-btns {
 		@include flex-space-around;
+	}
 
-		.thumb-icon:hover {
-			color: rgb(80, 79, 79);
-			cursor: pointer;
-		}
+	.customer-selection-summary-choices {
+		height: 100%;
+		overflow-y: scroll;
 	}
 
 	&-summary {
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: $white;
+		border: 1px solid $black;
+		padding: 0rem $space-md;
+
 		&-selected {
+			padding-bottom: $space-unit;
 		}
 
-		&-trash {
+		&-unselected {
+			margin-bottom: 10vh;
+		}
+
+		&-selected,
+		&-unselected {
+			img {
+				width: 90px;
+				height: 90px;
+			}
+		}
+		.save-selection {
+			position: absolute;
+			left: $space-unit;
+			right: $space-unit;
+			bottom: $space-sm;
 		}
 	}
+
+	.customer-selection-summary-btn {
+		z-index: 1;
+		position: absolute;
+		bottom: 69.9vh;
+		left: 50%;
+		right: 50%;
+		transform: translate(-50%, 0);
+		background: $white;
+		border-radius: $space-lg $space-lg 0px 0px;
+		border-left: 1px solid $black;
+		border-right: 1px solid $black;
+		border-top: 1px solid $black;
+		width: 50vw;
+	}
+}
+
+#sm {
+	bottom: 70vh;
 }

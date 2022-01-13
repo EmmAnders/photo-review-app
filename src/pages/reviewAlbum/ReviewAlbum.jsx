@@ -2,15 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import Masonry from "react-masonry-css";
-import { SRLWrapper } from "simple-react-lightbox";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons";
-{
-	/* <i class="fas fa-undo"></i> */
-}
-
 //Context imports
 /* import { useCollectionContext } from "../../contexts/CollectionContext";
  */
@@ -20,30 +11,29 @@ import { db } from "../../firebase/config";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 //Hooks imports
-import { useCollection } from "../../hooks/useCollection";
+import { useCollection } from "../../hooks/useCollection"; /* MasonryGrid  */ /* Modal, CollectionForm */ /* "../../components/index"; */ //styles
 
 //Component imports
-import { ImageGrid /* Modal, CollectionForm */ } from "../../components/index";
+import {
+	MasonryGrid,
+	Grid,
+	ImageCard,
+	Modal,
+	AlbumForm,
+	UploadImageDropzone,
+	Loader,
+} from "../../components/index";
+/* import  */ import "./ReviewAlbum.scss";
 
-//styles
-import "./ReviewAlbum.scss";
-import "../../components/imageGrid/ImageGrid.scss";
-
-const masonryBreakpoints = {
-	default: 4,
-	576: 3,
-	768: 4,
-	992: 5,
-};
-
-const ReviewCollection = () => {
+const ReviewAlbum = () => {
 	const { /*  documentId, */ linkId } = useParams();
 	const navigate = useNavigate();
 	const [doc, setDoc] = useState();
 	const [images, setImages] = useState([]);
-	const [totalImages, setTotalImages] = useState();
+	const [totalImages, setTotalImages] = useState(null);
 	const [selected, setSelected] = useState([]);
-	const [trash, setTrash] = useState([]);
+	const [unselected, setUnselected] = useState([]);
+	const [openSummary, setOpenSummary] = useState(false);
 
 	const { documents: document, loading } = useCollection("photoAlbums", [
 		"shareableLink",
@@ -60,6 +50,8 @@ const ReviewCollection = () => {
 				setTotalImages(d.images.length);
 				setDoc(d);
 			});
+		setSelected([]);
+		setUnselected([]);
 	}, [document]);
 
 	const handleReview = (
@@ -94,140 +86,183 @@ const ReviewCollection = () => {
 		}
 	};
 
-	/* 	console.log(document.uid); */
-	/* console.log(doc);
-	console.log(images); */
-
 	const handleSubmit = async () => {
 		let today = new Date();
-		
+
 		if (images.length < 1) {
 			await addDoc(collection(db, "reviewedPhotoAlbums"), {
 				name: doc.name + "-" + today.toLocaleString(),
 				timestamp: serverTimestamp(),
 				uid: doc.uid,
 				images: selected,
-				reviewedCollection: doc.id,
+				reviewedAlbum: doc.id,
 			});
 			setSelected([]);
-			setTrash([]);
+			setUnselected([]);
 			navigate("/");
 		} else {
 			alert("Please select all images");
 		}
 	};
 
+	const handleOpenSummary = () => {
+		setOpenSummary(!openSummary);
+	};
+
 	return (
-		<div className="collection-review">
-			<section className="collection-review-images">
-				<SRLWrapper>
-					<Masonry
-						breakpointCols={masonryBreakpoints}
-						className="masonry-grid"
-						columnClassName="masonry-grid_column"
-					>
-						{images &&
-							images.map((img, index) => (
-								<div key={index}>
-									<img src={img.url} />
-									<div className="collection-review-icons">
-										<FontAwesomeIcon
-											onClick={() =>
-												handleReview(
-													img.url,
-													img.name,
-													img.path,
-													img.size,
-													img.type,
-													images,
-													setImages,
-													selected,
-													setSelected
-												)
-											}
-											className="thumb-icon"
-											icon={faThumbsUp}
-										/>
-										<FontAwesomeIcon
-											onClick={() =>
-												handleReview(
-													img.url,
-													img.name,
-													img.path,
-													img.size,
-													img.type,
-													images,
-													setImages,
-													trash,
-													setTrash
-												)
-											}
-											className="thumb-icon"
-											icon={faThumbsDown}
-										/>
-									</div>
+		<section className="customer-selection">
+			<section className="customer-selection-images">
+				<MasonryGrid>
+					{images &&
+						images.map((img, index) => (
+							<div key={index}>
+								<img src={img.url} />
+								<div className="select-btns">
+									<p
+										onClick={() =>
+											handleReview(
+												img.url,
+												img.name,
+												img.path,
+												img.size,
+												img.type,
+												images,
+												setImages,
+												selected,
+												setSelected
+											)
+										}
+									>
+										+
+									</p>
+									<p
+										onClick={() =>
+											handleReview(
+												img.url,
+												img.name,
+												img.path,
+												img.size,
+												img.type,
+												images,
+												setImages,
+												unselected,
+												setUnselected
+											)
+										}
+									>
+										-
+									</p>
 								</div>
-							))}
-					</Masonry>
-				</SRLWrapper>
+							</div>
+						))}
+				</MasonryGrid>
 			</section>
+			<section
+				style={{
+					bottom: !openSummary ? "-70vh" : "0",
+					height: selected.length < 1 ? "20vh" : "70vh",
+				}}
+				className="customer-selection-summary"
+			>
+				{selected.length < 1 && unselected.length < 1 && (
+					<p>0 selected images </p>
+				)}
 
-			<section className="collection-review-summary">
-				<div className="collection-review-summary-selected">
-					<h2>
-						Selected Images {selected.length}/{totalImages}
-					</h2>
-
-					{selected &&
-						selected.map((img) => (
-							<p
-								onClick={() =>
-									handleReview(
-										img.url,
-										img.name,
-										img.path,
-										img.size,
-										img.type,
-										selected,
-										setSelected,
-										images,
-										setImages
-									)
-								}
-							>
-								{img.name}
-							</p>
-						))}
-				</div>
-				<div className="collection-review-summary-trash">
-					<h2>Trash</h2>
-					{trash &&
-						trash.map((img) => (
-							<p
-								onClick={() =>
-									handleReview(
-										img.url,
-										img.name,
-										img.path,
-										img.size,
-										img.type,
-										trash,
-										setTrash,
-										images,
-										setImages
-									)
-								}
-							>
-								{img.name}
-							</p>
-						))}
-				</div>
-				<button className="primary-button" onClick={handleSubmit}>
-					Send Rewiew
+				<button
+					onClick={handleOpenSummary}
+					className="customer-selection-summary-btn"
+					id="sm"
+					style={{
+						bottom:
+							selected.length < 1 && unselected.length < 1
+								? "20vh"
+								: "70vh",
+					}}
+				>
+					{openSummary ? (
+						<p>close</p>
+					) : (
+						<p>Summary ({selected.length + "/" + totalImages})</p>
+					)}
 				</button>
+				<div className="customer-selection-summary-choices">
+					{openSummary && (
+						<div
+							className={`customer-selection-summary-selected `}
+							style={{
+								display:
+									selected.length < 1 ? "none" : "static",
+							}}
+						>
+							<h3>Favorites</h3>
+
+							<Grid>
+								{selected &&
+									selected.map((img, index) => (
+										<img
+											key={index}
+											src={img.url}
+											onClick={() =>
+												handleReview(
+													img.url,
+													img.name,
+													img.path,
+													img.size,
+													img.type,
+													selected,
+													setSelected,
+													images,
+													setImages
+												)
+											}
+										></img>
+									))}
+							</Grid>
+						</div>
+					)}
+
+					{openSummary && (
+						<div
+							style={{
+								display:
+									selected.length < 1 ? "none" : "static",
+							}}
+							className="customer-selection-summary-unselected"
+						>
+							<h3>Unselected</h3>
+							<Grid>
+								{unselected &&
+									unselected.map((img, index) => (
+										<img
+											key={index}
+											src={img.url}
+											onClick={() =>
+												handleReview(
+													img.url,
+													img.name,
+													img.path,
+													img.size,
+													img.type,
+													unselected,
+													setUnselected,
+													images,
+													setImages
+												)
+											}
+										></img>
+									))}
+							</Grid>
+						</div>
+					)}
+				</div>
+				<div className="save-selection">
+					<button className=" primary-button" onClick={handleSubmit}>
+						Save ({selected.length}/{totalImages})
+					</button>
+				</div>
 			</section>
-		</div>
+		</section>
 	);
 };
 
-export default ReviewCollection;
+export default ReviewAlbum;

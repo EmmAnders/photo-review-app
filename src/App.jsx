@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { useAuthContext } from "./contexts/AuthContext";
+
 import "./assets/scss/index.scss";
 import "./App.scss";
 
@@ -19,15 +21,27 @@ import {
 } from "./components/index.js";
 
 function App() {
+	const { user } = useAuthContext();
+
 	return (
-		<div className="site-wrapper">
+		<div
+			style={{
+				gridTemplateColumns: user ? "30% 70%" : "0% 100%",
+			}}
+			className="site-wrapper"
+		>
 			<header>
 				<TopNavigation />
 			</header>
 
-			<nav>
+			<nav
+				style={{
+					display: user ? "" : "none",
+				}}
+			>
 				<SideNavigation />
 			</nav>
+
 			<main>
 				<Routes>
 					<Route

@@ -22,7 +22,7 @@ const CollectionForm = (props) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (!newCollection == " ") {
+		if (!newCollection == "") {
 			await addDoc(collection(db, "photoAlbums"), {
 				name: newCollection,
 				timestamp: serverTimestamp(),
@@ -47,7 +47,13 @@ const CollectionForm = (props) => {
 					value={newCollection}
 				/>
 			</label>
-			<button onClick={props.close} type="submit">
+			<button
+				className={`${
+					newCollection ? "primary-button" : "disabled-button"
+				}`}
+				onClick={props.close}
+				type="submit"
+			>
 				Create
 			</button>
 		</form>

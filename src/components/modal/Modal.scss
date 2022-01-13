@@ -1,59 +1,36 @@
 @import "../../assets/scss/index.scss";
 
 .modal {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	right: 0;
-	top: 0;
 	bottom: 0;
 	background: $white;
-	padding: $space-unit;
+	padding: $space-lg;
+	border-radius: $border-radius $border-radius 0px 0px;
 
 	@include tablet {
-		@include absolute-center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 0rem $space-lg;
-		width: 80vw;
-		height: 30vh;
-	}
-
-	@include desktop {
-		width: 35vw;
-		height: 35vh;
-	}
-
-	&-overlay {
-		@include absolute-center;
-		background: $overlay;
+		@include fixed-center;
+		@include flex-center-column;
+		align-items: stretch;
+		max-width: 600px;
+		max-height: 300px;
+		border-radius: $border-radius;
 	}
 
 	&-header {
 		@include flex-space-between;
+		@include border-layout;
 		margin-bottom: $space-lg;
 
-		& > * {
-			border-bottom: 1px solid $light-grey;
-			padding-bottom: $space-xs;
-			position: relative;
-			width: 100%;
-
-			&:not(:last-child) {
-				margin-right: 0.5rem;
-				position: relative;
-				&:after {
-					content: "";
-					position: absolute;
-					top: 0;
-					right: -0.28rem;
-					border-right: 1px solid $light-grey;
-					height: 20px;
-				}
-			}
-			&:last-child {
-				text-align: right;
-			}
+		&-close {
+			cursor: pointer;
 		}
+	}
+
+	&-overlay {
+		background: $overlay;
+		@include fixed-center;
+		cursor: pointer;
 	}
 }

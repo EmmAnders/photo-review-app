@@ -1,11 +1,14 @@
 import TopNavigation from "./navigation/topNavigation/TopNavigation";
 import SideNavigation from "./navigation/sidebar/SideNavigation";
 import AlbumForm from "./forms/AlbumForm";
-import AlbumList from "./lists/AlbumList";
+import AlbumList from "./albumList/AlbumList";
 import UploadImageDropzone from "./uploadImageDropzone/UploadImageDropzone";
 import Modal from "./modal/Modal";
-import ImageGrid from "../components/imageGrid/ImageGrid";
+import MasonryGrid from "./masonryGrid/MasonryGrid";
+import Grid from "./grid/Grid";
+import ImageCard from "./imageCard/ImageCard";
 import RequireAuth from "./RequireAuth";
+import Loader from "./Loader";
 
 export {
 	TopNavigation,
@@ -13,7 +16,10 @@ export {
 	AlbumForm,
 	AlbumList,
 	UploadImageDropzone,
-	RequireAuth,
 	Modal,
-	ImageGrid,
+	MasonryGrid,
+	Grid,
+	ImageCard,
+	RequireAuth,
+	Loader,
 };

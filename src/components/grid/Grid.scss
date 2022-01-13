@@ -1,0 +1,18 @@
+@import "../../assets/scss/index.scss";
+
+.grid-container {
+	width: 100%;
+	display: grid;
+	align-items: center;
+	grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+	gap: $space-lg;
+
+	@include tablet {
+		grid-template-columns: repeat(auto-fit, minmax(12vw, 1fr));
+	}
+
+	@include desktop {
+		grid-template-columns: repeat(auto-fit, minmax(8vw, 1fr));
+		gap: $space-unit;
+	}
+}

@@ -8,6 +8,7 @@
 		grid-template-areas:
 			"header header"
 			"nav  main";
+
 		grid-template-columns: 30% 70%;
 
 		header {
@@ -23,17 +24,21 @@
 		nav {
 			grid-area: nav;
 			position: fixed;
-			margin-top: $space-xl;
+			margin: $space-xl 0rem;
+			border-right: 1px solid $light-grey;
+			padding-right: $space-xl;
+			height: 100%;
 		}
 
 		main {
 			grid-area: main;
 			margin-top: $space-xl;
-			height: 100%;
 		}
 	}
 
 	@include desktop {
 		grid-template-columns: 20% 80%;
 	}
+
+
 }

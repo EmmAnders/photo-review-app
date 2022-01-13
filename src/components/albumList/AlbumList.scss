@@ -1,0 +1,30 @@
+@import "../../assets/scss/index.scss";
+
+.album-list {
+	&-labels {
+		@include flex-space-between;
+		padding: 0rem $space-sm;
+	}
+
+	&-item {
+		@include flex-space-between;
+		border: 1px solid $grey;
+		border-radius: $border-radius;
+		margin-bottom: $space-unit;
+		padding: $space-sm $space-md;
+		transition: 0.3s;
+
+		&:hover {
+			opacity: 0.5;
+			cursor: pointer;
+		}
+
+		&-title {
+			@include flex-space-between;
+
+			.folder-icon {
+				margin-right: $space-xs;
+			}
+		}
+	}
+}
