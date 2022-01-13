@@ -8,11 +8,11 @@
 	gap: $space-lg;
 
 	@include tablet {
-		grid-template-columns: repeat(auto-fit, minmax(12vw, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(1vw, 1fr));
 	}
 
 	@include desktop {
-		grid-template-columns: repeat(auto-fit, minmax(8vw, 1fr));
+		grid-template-columns: repeat(6, minmax(12vh, 1fr));
 		gap: $space-unit;
 	}
 }

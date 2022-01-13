@@ -8,12 +8,12 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "../../firebase/config";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-const CollectionForm = (props) => {
+const AlbumForm = (props) => {
 	const { user } = useAuthContext();
 	const {
 		selectedImages,
 		setSelectedImages,
-		setOpenModal,
+		setOpenCreateAlbum,
 	} = useCollectionContext();
 
 	const navigate = useNavigate();
@@ -32,7 +32,7 @@ const CollectionForm = (props) => {
 			});
 		}
 		setSelectedImages([]);
-		setOpenModal(false);
+		setOpenCreateAlbum(false);
 		navigate("/");
 	};
 	return (
@@ -60,4 +60,4 @@ const CollectionForm = (props) => {
 	);
 };
 
-export default CollectionForm;
+export default AlbumForm;

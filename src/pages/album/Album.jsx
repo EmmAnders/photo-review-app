@@ -15,9 +15,9 @@ import { useDocument } from "../../hooks/useDocument";
 //Component imports
 import {
 	Grid,
+	AlbumForm,
 	ImageCard,
 	Modal,
-	AlbumForm,
 	UploadImageDropzone,
 	Loader,
 } from "../../components/index";
@@ -30,18 +30,19 @@ const Album = (props) => {
 		handleSelectedImages,
 		selectedImages,
 		activeCardElement,
-		openModal,
-		setOpenModal,
+		openCreateAlbum,
+		setOpenCreateAlbum,
 	} = useCollectionContext();
 
 	const { id } = useParams();
-	
+
 	const { document, loading } = useDocument("photoAlbums", id);
 	const [value, setValue] = useState("");
 	const [copied, setCopied] = useState(false);
 
 	useEffect(() => {
 		document && setValue(`/review-album/${id}/${document.shareableLink}`);
+		/* https://phoapp.netlify.app */
 	}, [document]);
 
 	return (
@@ -69,22 +70,24 @@ const Album = (props) => {
 			)}
 
 			<div className="album-create-btns">
-				<button className="primary-button">Upload</button>
 				{selectedImages.length > 0 && (
-					<button
-						className="primary-button"
-						onClick={() => setOpenModal(true)}
-					>
-						Create new Album ({selectedImages.length})
-					</button>
+					<>
+						<button
+							className="primary-button"
+							onClick={() => setOpenCreateAlbum(true)}
+						>
+							Create new Album ({selectedImages.length})
+						</button>
+					</>
 				)}
+				<UploadImageDropzone images={document && document.images} />
 			</div>
 
-			{openModal && (
+			{openCreateAlbum && (
 				<Modal
 					title="Create Album"
 					body={<AlbumForm />}
-					close={() => setOpenModal(false)}
+					close={() => setOpenCreateAlbum(false)}
 				/>
 			)}
 
@@ -119,7 +122,6 @@ const Album = (props) => {
 							/>
 						))}
 					</Grid>
-					<UploadImageDropzone />
 				</>
 			)}
 		</div>

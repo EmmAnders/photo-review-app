@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useCollectionContext } from "../../contexts/CollectionContext";
 
 //Hooks
@@ -8,7 +6,7 @@ import useComponentVisible from "../../hooks/useComponentVisible";
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 //Components
-import { Modal, Form } from "../index";
+import { Modal, Form, AlbumForm } from "../index";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-regular-svg-icons";
@@ -24,11 +22,12 @@ import "./AlbumList.scss";
 const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 	const navigate = useNavigate();
 	const {
-		openModal,
-		setOpenModal,
 		setCurrentAlbumId,
+		openUpdateAlbum,
+		setOpenUpdateAlbum,
+		openCreateAlbum,
+		setOpenCreateAlbum,
 	} = useCollectionContext();
-	const updateAlbum = useUpdateDocument();
 
 	const handleClickToAlbumId = (id) => {
 		navigate(`/${route}/${id}`);
@@ -49,9 +48,9 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 			)
 	);
 
-	const handleOpenModal = () => {
-		setOpenModal(true);
-		if (openModal) {
+	const handleUpdateAlbum = () => {
+		setOpenUpdateAlbum(true);
+		if (openUpdateAlbum) {
 		}
 		setIsComponentVisible(null);
 	};
@@ -73,7 +72,7 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 				{photoAlbums.map((album) => (
 					<li className="album-list-item" key={album.id}>
 						<div
-							/* 	onClick={() => handleClickToAlbumId(album.id)} */
+							onClick={() => handleClickToAlbumId(album.id)}
 							className="album-list-item-title"
 						>
 							<FontAwesomeIcon
@@ -106,38 +105,46 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 
 						{isComponentVisible === album.id ? (
 							<div ref={ref} className="more-icon-dropdown">
-								<span onClick={handleOpenModal}>
+								<span onClick={handleUpdateAlbum}>
 									<FontAwesomeIcon
 										className="icon"
 										icon={faPen}
 									></FontAwesomeIcon>
-									<p onClick={handleOpenModal}>Edit name</p>
+									<p onClick={handleUpdateAlbum}>Edit name</p>
 								</span>
-								<span onClick={handleDelete}>
+								{/* 	<span>
 									<FontAwesomeIcon
 										className="icon"
 										icon={faTrash}
 									></FontAwesomeIcon>
 									<p>Delete</p>
-								</span>
-								<span onClick={handleCopyLink}>
+								</span> */}
+								{/* 	<span onClick={handleCopyLink}>
 									<FontAwesomeIcon
 										className="icon"
 										icon={faLink}
 									></FontAwesomeIcon>
 									<p>Copy link</p>
-								</span>
+								</span> */}
 							</div>
 						) : null}
 					</li>
 				))}
 			</ul>
 
-			{openModal && (
+			{openUpdateAlbum && (
 				<Modal
-					close={() => setOpenModal(false)}
+					close={() => setOpenUpdateAlbum(false)}
 					title="Change name"
 					body={<Form />}
+				/>
+			)}
+
+			{openCreateAlbum && (
+				<Modal
+					close={() => setOpenCreateAlbum(false)}
+					title="Create Album"
+					body={<AlbumForm />}
 				/>
 			)}
 		</>

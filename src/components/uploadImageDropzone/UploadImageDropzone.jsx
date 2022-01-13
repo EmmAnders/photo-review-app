@@ -8,7 +8,7 @@ import useUploadImages from "../../hooks/useUploadImages";
 //Styles
 import "./UploadImageDropzone.scss";
 
-const UploadImageDropzone = () => {
+const UploadImageDropzone = ({ images }) => {
 	const { id } = useParams();
 	const uploadImages = useUploadImages();
 	const onDrop = useCallback((acceptedFiles) => {
@@ -33,21 +33,28 @@ const UploadImageDropzone = () => {
 
 	return (
 		<>
-			<div {...getRootProps()} className="dropzone-container">
-				<input {...getInputProps()} className="dropzone" />
+			<div {...getRootProps()} className={`dropzone-container  `}>
+				<input {...getInputProps()} className="dropzone " />
 				{isDragActive ? (
 					isDragAccept ? (
-						<p>Drop that photo</p>
+						<p>Drop your image</p>
 					) : (
 						<p>Drop didn't work</p>
 					)
 				) : (
-					<p>Drop photos here</p>
+					<>
+						{uploadImages.progress !== null ? (
+							<p>{uploadImages.progress}</p>
+						) : (
+							<p>Upload</p>
+						)}
+					</>
 				)}
+				{/* 	<div>
+					{uploadImages.isError && <p>{uploadImages.error}</p>}
+					{uploadImages.isSuccess && <p>{uploadImages.success}</p>}
+				</div> */}
 			</div>
-			{uploadImages.progress !== null && <p>{uploadImages.progress}</p>}
-			{uploadImages.isError && <p>{uploadImages.error}</p>}
-			{uploadImages.isSuccess && <p>{uploadImages.success}</p>}
 		</>
 	);
 };
