@@ -4,10 +4,10 @@ import { SRLWrapper } from "simple-react-lightbox";
 import "./MasonryGrid.scss";
 
 const masonryBreakpoints = {
-	default: 6,
+	default: 8,
 	576: 3,
 	768: 4,
-	992: 5,
+	992: 9,
 };
 
 const MasonryGrid = ({ children }) => {
