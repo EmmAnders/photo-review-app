@@ -25,8 +25,6 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 		setCurrentAlbumId,
 		openUpdateAlbum,
 		setOpenUpdateAlbum,
-		openCreateAlbum,
-		setOpenCreateAlbum,
 	} = useCollectionContext();
 
 	const handleClickToAlbumId = (id) => {
@@ -137,14 +135,6 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 					close={() => setOpenUpdateAlbum(false)}
 					title="Change name"
 					body={<Form />}
-				/>
-			)}
-
-			{openCreateAlbum && (
-				<Modal
-					close={() => setOpenCreateAlbum(false)}
-					title="Create Album"
-					body={<AlbumForm />}
 				/>
 			)}
 		</>

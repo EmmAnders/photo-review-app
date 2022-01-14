@@ -26,7 +26,7 @@ function App() {
 	return (
 		<div
 			style={{
-				gridTemplateColumns: user ? "30% 70%" : "0% 100%",
+				gridTemplateColumns: user ? "15% 85%" : "0% 100%",
 			}}
 			className="site-wrapper"
 		>

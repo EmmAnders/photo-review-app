@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
-import "./Signup.scss";
+import "../../assets/scss/index.scss";
 
 const Signup = () => {
 	const { signup, setUser, user } = useAuthContext();
@@ -25,12 +25,15 @@ const Signup = () => {
 			navigate("/");
 		} catch (e) {
 			setError(e.message);
-			console.log(e.message);
 		}
 	};
 
 	return (
-		<form className="form" onSubmit={handleSubmit}>
+		<form
+			className="form"
+			style={{ width: "50%", margin: "0 auto" }}
+			onSubmit={handleSubmit}
+		>
 			<h2>Signup</h2>
 			<p>{error}</p>
 			<label>
@@ -61,7 +64,9 @@ const Signup = () => {
 					value={passwordConfirmation}
 				/>
 			</label>
-			<button type="submit">Signup</button>
+			<button className="primary-button" type="submit">
+				Signup
+			</button>
 			<p className="form-redirect">
 				Already have an account? <Link to="/login">Log In</Link>{" "}
 			</p>

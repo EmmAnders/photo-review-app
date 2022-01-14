@@ -25,7 +25,6 @@
 			grid-area: nav;
 			position: fixed;
 			margin: $space-xl 0rem;
-			border-right: 1px solid $light-grey;
 			padding-right: $space-xl;
 			height: 100%;
 		}
@@ -39,6 +38,4 @@
 	@include desktop {
 		grid-template-columns: 20% 80%;
 	}
-
-
 }

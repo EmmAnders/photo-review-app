@@ -43,7 +43,7 @@ const SideNavigation = () => {
 							}
 							to="/reviewed-albums"
 						>
-							User Picks
+							Reviewed Albums
 						</NavLink>
 					</li>
 				</ul>

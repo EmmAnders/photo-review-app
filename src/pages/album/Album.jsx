@@ -41,8 +41,10 @@ const Album = (props) => {
 	const [copied, setCopied] = useState(false);
 
 	useEffect(() => {
-		document && setValue(`/review-album/${id}/${document.shareableLink}`);
-		/* https://phoapp.netlify.app */
+		document &&
+			setValue(
+				`https://phoapp.netlify.app/review-album/${id}/${document.shareableLink}`
+			);
 	}, [document]);
 
 	return (
