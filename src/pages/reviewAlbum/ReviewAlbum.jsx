@@ -225,7 +225,9 @@ const ReviewAlbum = () => {
 							<div
 								style={{
 									display:
-										selected.length < 1 ? "none" : "static",
+										unselected.length < 1
+											? "none"
+											: "static",
 								}}
 								className="customer-selection-summary-unselected"
 							>
