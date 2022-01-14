@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../contexts/AuthContext";
-import { useCollectionContext } from "../../contexts/CollectionContext";
 import { v4 as uuidv4 } from "uuid";
 
 //Firebase imports
 import { db } from "../../firebase/config";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-const AlbumForm = (props) => {
+//Contexts
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useCollectionContext } from "../../contexts/CollectionContext";
+
+const CreateAlbumForm = (props) => {
 	const { user } = useAuthContext();
 	const {
 		selectedImages,
@@ -17,24 +19,26 @@ const AlbumForm = (props) => {
 	} = useCollectionContext();
 
 	const navigate = useNavigate();
-	const [newCollection, setNewCollection] = useState("");
+	const [newAlbum, setNewAlbum] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (!newCollection == "") {
+		if (!newAlbum == "") {
 			await addDoc(collection(db, "photoAlbums"), {
-				name: newCollection,
+				name: newAlbum,
 				timestamp: serverTimestamp(),
 				uid: user.uid,
 				images: selectedImages,
 				shareableLink: uuidv4() + "-" + uuidv4(),
 			});
 		}
+
 		setSelectedImages([]);
 		setOpenCreateAlbum(false);
 		navigate("/");
 	};
+
 	return (
 		<form className="form" onSubmit={handleSubmit}>
 			<label>
@@ -43,14 +47,12 @@ const AlbumForm = (props) => {
 					required
 					placeholder="Album name"
 					type="text"
-					onChange={(e) => setNewCollection(e.target.value)}
-					value={newCollection}
+					onChange={(e) => setNewAlbum(e.target.value)}
+					value={newAlbum}
 				/>
 			</label>
 			<button
-				className={`${
-					newCollection ? "primary-button" : "disabled-button"
-				}`}
+				className={`${newAlbum ? "primary-button" : "disabled-button"}`}
 				onClick={props.close}
 				type="submit"
 			>
@@ -60,4 +62,4 @@ const AlbumForm = (props) => {
 	);
 };
 
-export default AlbumForm;
+export default CreateAlbumForm;

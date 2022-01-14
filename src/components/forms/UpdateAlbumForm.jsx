@@ -4,12 +4,12 @@ import { useCollectionContext } from "../../contexts/CollectionContext";
 //Hooks
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
-const Form = () => {
+const UpdateAlbumForm = () => {
 	const {
 		updatedName,
 		setUpdatedName,
 		currentAlbumId,
-		setOpenModal,
+		setOpenUpdateAlbum,
 	} = useCollectionContext();
 
 	const updateAlbum = useUpdateDocument();
@@ -28,14 +28,13 @@ const Form = () => {
 				currentAlbumId
 			);
 			setUpdatedName("");
-			setOpenModal(false);
+			setOpenUpdateAlbum(false);
 		}
 	};
 
 	return (
 		<>
 			{updateAlbum.error && <p>Error</p>}
-
 			<form className="form" onSubmit={handleEditName}>
 				<label>
 					<input
@@ -63,4 +62,4 @@ const Form = () => {
 	);
 };
 
-export default Form;
+export default UpdateAlbumForm;

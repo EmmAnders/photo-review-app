@@ -1,9 +1,4 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-//Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 //Context imports
 import { useCollectionContext } from "../../contexts/CollectionContext";
@@ -14,7 +9,7 @@ import { useDocument } from "../../hooks/useDocument";
 //Component imports
 import {
 	Grid,
-	AlbumForm,
+	CreateAlbumForm,
 	ImageCard,
 	Modal,
 	UploadImageDropzone,
@@ -62,7 +57,7 @@ const ReviewedAlbum = () => {
 			{openCreateAlbum && (
 				<Modal
 					title="Create Album"
-					body={<AlbumForm />}
+					body={<CreateAlbumForm />}
 					close={() => setOpenCreateAlbum(false)}
 				/>
 			)}

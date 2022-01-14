@@ -10,15 +10,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useCollection } from "../../hooks/useCollection"; /* MasonryGrid  */ /* Modal, CollectionForm */ /* "../../components/index"; */ //styles
 
 //Component imports
-import {
-	MasonryGrid,
-	Grid,
-	ImageCard,
-	Modal,
-	AlbumForm,
-	UploadImageDropzone,
-	Loader,
-} from "../../components/index";
+import { MasonryGrid, Grid } from "../../components/index";
 
 //Styles
 import "./ReviewAlbum.scss";
@@ -28,7 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndo } from "@fortawesome/free-solid-svg-icons";
 
 const ReviewAlbum = () => {
-	const { /*  documentId, */ linkId } = useParams();
+	const { linkId } = useParams();
 	const navigate = useNavigate();
 	const [doc, setDoc] = useState();
 	const [images, setImages] = useState([]);
@@ -103,7 +95,7 @@ const ReviewAlbum = () => {
 			setUnselected([]);
 			navigate("/");
 		} else {
-			alert("Please select all images");
+			alert("Select all images");
 		}
 	};
 

@@ -10,7 +10,7 @@ import { useCollection } from "../../hooks/useCollection";
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 //Component imports
-import { Modal, AlbumForm, AlbumList } from "../../components/index";
+import { Modal, CreateAlbumForm, AlbumList } from "../../components/index";
 
 //Styles
 import "./Albums.scss";
@@ -22,9 +22,9 @@ const Albums = () => {
 	const { documents } = useCollection("photoAlbums", ["uid", "==", user.uid]);
 	/* const updateAlbum = useUpdateDocument(); */
 
-	useEffect(() => {
+	/* 	useEffect(() => {
 		console.log(currentAlbumId);
-	}, [currentAlbumId]);
+	}, [currentAlbumId]); */
 
 	/* const handleEditName = (e) => {
 		e.preventDefault();

@@ -15,7 +15,7 @@ import { useDocument } from "../../hooks/useDocument";
 //Component imports
 import {
 	Grid,
-	AlbumForm,
+	CreateAlbumForm,
 	ImageCard,
 	Modal,
 	UploadImageDropzone,
@@ -88,7 +88,7 @@ const Album = (props) => {
 			{openCreateAlbum && (
 				<Modal
 					title="Create Album"
-					body={<AlbumForm />}
+					body={<CreateAlbumForm />}
 					close={() => setOpenCreateAlbum(false)}
 				/>
 			)}

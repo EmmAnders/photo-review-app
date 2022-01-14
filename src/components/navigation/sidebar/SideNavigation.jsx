@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 //Component imports
-import { Modal, AlbumForm } from "../../index";
+import { Modal, CreateAlbumForm } from "../../index";
 
 import "./SideNavigation.scss";
 
@@ -53,7 +53,7 @@ const SideNavigation = () => {
 				<>
 					<Modal
 						title="Create Album"
-						body={<AlbumForm />}
+						body={<CreateAlbumForm />}
 						close={() => setOpenCreateAlbum(false)}
 					/>
 				</>

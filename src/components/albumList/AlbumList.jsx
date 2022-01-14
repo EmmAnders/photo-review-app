@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCollectionContext } from "../../contexts/CollectionContext";
 
@@ -6,20 +7,16 @@ import useComponentVisible from "../../hooks/useComponentVisible";
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 //Components
-import { Modal, Form, AlbumForm } from "../index";
+import { Modal, UpdateAlbumForm, Dropdown } from "../index";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-regular-svg-icons";
-import {
-	faEllipsisH,
-	faLink,
-	faTrash,
-	faPen,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { faLink, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 
 import "./AlbumList.scss";
 
-const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
+const AlbumList = ({ photoAlbums, route }) => {
 	const navigate = useNavigate();
 	const {
 		setCurrentAlbumId,
@@ -48,8 +45,6 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 
 	const handleUpdateAlbum = () => {
 		setOpenUpdateAlbum(true);
-		if (openUpdateAlbum) {
-		}
 		setIsComponentVisible(null);
 	};
 
@@ -57,6 +52,12 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 		setIsComponentVisible((visible) => (visible === id ? null : id));
 		setCurrentAlbumId(id);
 	};
+
+	const dropdownItems = [
+		{ name: "Edit name", icon: faPen, onClick: handleUpdateAlbum },
+		{ name: "Delete", icon: faTrash },
+		{ name: "Copy link", icon: faLink },
+	];
 
 	return (
 		<>
@@ -101,31 +102,15 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 							></FontAwesomeIcon>
 						</div>
 
-						{isComponentVisible === album.id ? (
-							<div ref={ref} className="more-icon-dropdown">
-								<span onClick={handleUpdateAlbum}>
-									<FontAwesomeIcon
-										className="icon"
-										icon={faPen}
-									></FontAwesomeIcon>
-									<p onClick={handleUpdateAlbum}>Edit name</p>
-								</span>
-								{/* 	<span>
-									<FontAwesomeIcon
-										className="icon"
-										icon={faTrash}
-									></FontAwesomeIcon>
-									<p>Delete</p>
-								</span> */}
-								{/* 	<span onClick={handleCopyLink}>
-									<FontAwesomeIcon
-										className="icon"
-										icon={faLink}
-									></FontAwesomeIcon>
-									<p>Copy link</p>
-								</span> */}
+						{isComponentVisible === album.id && (
+							<div ref={ref}>
+								<Dropdown
+									handleUpdateAlbum={handleUpdateAlbum}
+									items={dropdownItems}
+									title={album.name}
+								/>
 							</div>
-						) : null}
+						)}
 					</li>
 				))}
 			</ul>
@@ -134,7 +119,7 @@ const AlbumList = ({ photoAlbums, route, handleDelete, handleCopyLink }) => {
 				<Modal
 					close={() => setOpenUpdateAlbum(false)}
 					title="Change name"
-					body={<Form />}
+					body={<UpdateAlbumForm />}
 				/>
 			)}
 		</>

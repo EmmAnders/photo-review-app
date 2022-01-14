@@ -1,8 +1,3 @@
-/* import { useState } from "react";
-
-import { useNavigate, Link } from "react-router-dom";
- */
-
 //Context imports
 /* import { useCollectionContext } from "../../contexts/CollectionContext"; */
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -18,8 +13,6 @@ import "./ReviewedAlbums.scss";
 
 const ReviewedAlbums = () => {
 	const { user } = useAuthContext();
-	/* 	const { openModal, setOpenModal } = useCollectionContext();
-	 */
 
 	const { documents } = useCollection("reviewedPhotoAlbums", [
 		"uid",

@@ -25,34 +25,6 @@
 		padding: $space-sm $space-md;
 		transition: 0.3s;
 
-		.more-icon-dropdown {
-			z-index: 2;
-			border: 1px solid $dark-grey;
-			position: absolute;
-			right: 0;
-			top: 100%;
-			border: 1px solid $grey;
-			padding: $space-sm $space-lg;
-			border-radius: 0px 0px $border-radius $border-radius;
-			background: $white;
-			span {
-				display: flex;
-				align-items: center;
-				justify-content: flex-start;
-
-				&:hover {
-					color: $black;
-					opacity: 0.5;
-					cursor: pointer;
-				}
-
-				.icon {
-					margin-right: $space-xs;
-					font-size: 0.8rem;
-				}
-			}
-		}
-
 		&-title,
 		&-created-at,
 		&-more-btn {
