@@ -1,0 +1,22 @@
+@use '../abstracts/' as *;
+
+.albums {
+	&-create-btn {
+		position: absolute;
+		left: $space-unit;
+		right: $space-unit;
+		bottom: $space-unit;
+
+		@include tablet {
+			position: static;
+			width: 50%;
+		}
+
+		@include desktop {
+			width: 20%;
+		}
+		button {
+			@include primary-button;
+		}
+	}
+}

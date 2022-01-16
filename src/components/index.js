@@ -1,28 +1,31 @@
-import TopNavigation from "./navigation/topNavigation/TopNavigation";
-import SideNavigation from "./navigation/sidebar/SideNavigation";
+//Layout
+import Header from "./layout/Header";
+import SideNav from "./layout/SideNav";
+import MasonryGrid from "./layout/MasonryGrid";
+import Grid from "./layout/Grid";
+
+//Components
 import CreateAlbumForm from "./forms/CreateAlbumForm";
-import AlbumList from "./albumList/AlbumList";
-import UploadImageDropzone from "./uploadImageDropzone/UploadImageDropzone";
-import Modal from "./modal/Modal";
-import MasonryGrid from "./masonryGrid/MasonryGrid";
-import Grid from "./grid/Grid";
-import ImageCard from "./imageCard/ImageCard";
+import AlbumList from "./AlbumList";
+import Dropzone from "./Dropzone";
+import Modal from "./Modal";
+import Card from "./Card";
 import RequireAuth from "./RequireAuth";
 import Loader from "./Loader";
 import UpdateAlbumForm from "./forms/UpdateAlbumForm";
-import Dropdown from "./dropdown/Dropdown";
+import Dropdown from "./Dropdown";
 
 export {
-	TopNavigation,
-	SideNavigation,
+	Header,
+	SideNav,
 	AlbumList,
 	Modal,
 	CreateAlbumForm,
 	UpdateAlbumForm,
-	UploadImageDropzone,
+	Dropzone,
 	MasonryGrid,
 	Grid,
-	ImageCard,
+	Card,
 	RequireAuth,
 	Loader,
 	Dropdown,

@@ -1,0 +1,57 @@
+@use '../abstracts' as *;
+
+.album-list {
+	&-labels {
+		display: flex;
+		flex-grow: 1;
+		padding: 0rem $space-sm;
+
+		& > * {
+			width: 100%;
+		}
+
+		p:nth-child(2) {
+			text-align: center;
+		}
+	}
+
+	&-item {
+		position: relative;
+		display: flex;
+		flex-grow: 1;
+		border: 1px solid $grey;
+		border-radius: $border-radius;
+		margin-bottom: $space-unit;
+		padding: $space-sm $space-md;
+		transition: 0.3s;
+
+		&-title,
+		&-created-at,
+		&-more-btn {
+			cursor: pointer;
+			color: $dark-grey;
+			width: 100%;
+
+			&:hover {
+				color: $black;
+				opacity: 0.5;
+				cursor: pointer;
+			}
+		}
+
+		&-title {
+			display: flex;
+			.icon {
+				margin-right: $space-xs;
+			}
+		}
+
+		&-created-at {
+			text-align: center;
+		}
+
+		&-more-btn {
+			text-align: right;
+		}
+	}
+}

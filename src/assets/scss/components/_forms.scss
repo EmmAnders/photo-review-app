@@ -1,0 +1,22 @@
+@use '../abstracts' as *;
+
+.form {
+	&-redirect {
+		text-align: center;
+	}
+
+	label {
+		@include flex-column;
+		margin-bottom: $space-unit;
+
+		span {
+			margin-bottom: $space-xs;
+			font-weight: 400;
+			line-height: $baseline;
+		}
+
+		input {
+			margin-bottom: $space-sm;
+		}
+	}
+}

@@ -1,10 +1,10 @@
-import Albums from "./albums/Albums";
-import Album from "./album/Album";
-import ReviewAlbum from "./reviewAlbum/ReviewAlbum";
-import ReviewedAlbums from "./reviewedAlbums/ReviewedAlbums";
-import ReviewedAlbum from "./reviewedAlbum/ReviewedAlbum";
-import Signup from "./signup/Signup";
-import Login from "./login/Login";
+import Albums from "./Albums";
+import Album from "./Album";
+import ReviewAlbum from "./ReviewAlbum";
+import ReviewedAlbums from "./ReviewedAlbums";
+import ReviewedAlbum from "./ReviewedAlbum";
+import Signup from "./Signup";
+import Login from "./Login";
 
 export {
 	Albums,

@@ -1,0 +1,15 @@
+@use '../abstracts/' as *;
+
+header {
+	margin-bottom: $space-lg;
+	@include flex-space-between;
+	@include border-layout;
+
+	&:last-child {
+		text-align: right;
+	}
+
+	.logo {
+		font-weight: 600;
+	}
+}
