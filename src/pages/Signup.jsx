@@ -1,26 +1,36 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import { Form, FormInput } from "../components/index";
 
 const Signup = () => {
-	const { signup, setUser, user } = useAuthContext();
+	const { signup } = useAuthContext();
 	const navigate = useNavigate();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [passwordConfirmation, setPasswordConfirmation] = useState("");
 	const [error, setError] = useState(null);
+
+	const [form, setForm] = useState({
+		email: "",
+		password: "",
+		passwordConfirmation: "",
+	});
+
+	const handleFormChange = (e) => {
+		const { name, value } = e.target;
+		const updatedForm = { ...form, [name]: value };
+		setForm(updatedForm);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (password !== passwordConfirmation) {
+		if (form.password !== form.passwordConfirmation) {
 			return setError("Oh no! Your passwords don't match.");
 		}
 
 		setError(null);
 
 		try {
-			await signup(email, password);
+			await signup(form.email, form.password);
 			navigate("/");
 		} catch (e) {
 			setError(e.message);
@@ -28,48 +38,34 @@ const Signup = () => {
 	};
 
 	return (
-		<form
-			className="form"
-			style={{ width: "50%", margin: "0 auto" }}
-			onSubmit={handleSubmit}
-		>
-			<h2>Signup</h2>
-			<p>{error}</p>
-			<label>
-				<span>Email</span>
-				<input
-					required
+		<div className="signup-page">
+			<Form onSubmit={handleSubmit} cta="Create account">
+				<FormInput
+					label="email"
 					type="email"
-					onChange={(e) => setEmail(e.target.value)}
-					value={email}
+					value={form.email}
+					name="email"
+					onChange={handleFormChange}
 				/>
-			</label>
-			<label>
-				<span>Pick a password</span>
-				<input
-					required
+				<FormInput
+					label="password"
 					type="password"
-					onChange={(e) => setPassword(e.target.value)}
-					value={password}
+					name="password"
+					value={form.password}
+					onChange={handleFormChange}
 				/>
-			</label>
-
-			<label>
-				<span>Password Confirmation</span>
-				<input
-					required
+				<FormInput
+					label="password confirmation"
 					type="password"
-					onChange={(e) => setPasswordConfirmation(e.target.value)}
-					value={passwordConfirmation}
+					name="passwordConfirmation"
+					value={form.passwordConfirmation}
+					onChange={handleFormChange}
 				/>
-			</label>
-			<button className="primary-button" type="submit">
-				Signup
-			</button>
+			</Form>
 			<p className="form-redirect">
-				Already have an account? <Link to="/login">Log In</Link>{" "}
+				Already have an account? <Link to="/login">Login</Link>{" "}
 			</p>
-		</form>
+		</div>
 	);
 };
 

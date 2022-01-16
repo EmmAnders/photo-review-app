@@ -5,6 +5,9 @@ import MasonryGrid from "./layout/MasonryGrid";
 import Grid from "./layout/Grid";
 
 //Components
+import FormInput from "./form/FormInput";
+import Form from "./form/Form";
+
 import CreateAlbumForm from "./forms/CreateAlbumForm";
 import AlbumList from "./AlbumList";
 import Dropzone from "./Dropzone";
@@ -29,4 +32,6 @@ export {
 	RequireAuth,
 	Loader,
 	Dropdown,
+	FormInput,
+	Form,
 };

@@ -1,57 +1,57 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import { Form, FormInput } from "../components/index";
 
 const Login = () => {
 	const { login } = useAuthContext();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
 	const [error, setError] = useState(null);
+
+	const [form, setForm] = useState({
+		email: "",
+		password: "",
+	});
+
+	const handleFormChange = (e) => {
+		const { name, value } = e.target;
+		const updatedForm = { ...form, [name]: value };
+		setForm(updatedForm);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError(null);
 
 		try {
-			await login(email, password);
+			await login(form.email, form.password);
 		} catch (e) {
 			setError(e.message);
 		}
 	};
 
 	return (
-		<form
-			className="form"
-			style={{ width: "50%", margin: "0 auto" }}
-			onSubmit={handleSubmit}
-		>
-			<h2>Login</h2>
+		<div className="login-page">
 			<p>{error}</p>
-			<label>
-				<span>Email</span>
-				<input
-					required
+			<Form onSubmit={handleSubmit} cta="login">
+				<FormInput
+					label="email"
 					type="email"
-					onChange={(e) => setEmail(e.target.value)}
-					value={email}
+					value={form.email}
+					name="email"
+					onChange={handleFormChange}
 				/>
-			</label>
-			<label>
-				<span>Your password</span>
-				<input
-					required
+				<FormInput
+					label="password"
 					type="password"
-					onChange={(e) => setPassword(e.target.value)}
-					value={password}
+					name="password"
+					value={form.password}
+					onChange={handleFormChange}
 				/>
-			</label>
-			<button type="submit" className="primary-button">
-				Login
-			</button>
+			</Form>
 			<p className="form-redirect">
-				Don't have an account? <Link to="/signup">Signup</Link>{" "}
+				Don't have an account? <Link to="/signup">Sign up</Link>
 			</p>
-		</form>
+		</div>
 	);
 };
 
