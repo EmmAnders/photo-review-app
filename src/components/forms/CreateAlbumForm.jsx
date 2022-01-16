@@ -10,7 +10,10 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useCollectionContext } from "../../contexts/CollectionContext";
 
-const CreateAlbumForm = (props) => {
+//Components
+import { Form, FormInput } from "../index";
+
+const CreateAlbumForm = ({ close }) => {
 	const { user } = useAuthContext();
 	const {
 		selectedImages,
@@ -40,25 +43,16 @@ const CreateAlbumForm = (props) => {
 	};
 
 	return (
-		<form className="form" onSubmit={handleSubmit}>
-			<label>
-				<span>Name</span>
-				<input
-					required
-					placeholder="Album name"
-					type="text"
-					onChange={(e) => setNewAlbum(e.target.value)}
-					value={newAlbum}
-				/>
-			</label>
-			<button
-				className={`${newAlbum ? "primary-button" : "disabled-button"}`}
-				onClick={props.close}
-				type="submit"
-			>
-				Create
-			</button>
-		</form>
+		<Form onSubmit={handleSubmit} cta="create" btnClassCondition={newAlbum}>
+			<FormInput
+				label="name"
+				type="text"
+				value={newAlbum}
+				name="name"
+				onChange={(e) => setNewAlbum(e.target.value)}
+				onClick={close}
+			/>
+		</Form>
 	);
 };
 

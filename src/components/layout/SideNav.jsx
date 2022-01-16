@@ -11,6 +11,9 @@ import { Modal, CreateAlbumForm, Form, FormInput } from "../index";
 const SideNavigation = () => {
 	const { user } = useAuthContext();
 	const { openCreateAlbum, setOpenCreateAlbum } = useCollectionContext();
+
+
+	
 	return (
 		<>
 			{user && (

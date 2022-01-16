@@ -1,9 +1,14 @@
-const Form = ({ onSubmit, cta, children }) => {
+const Form = ({ onSubmit, children, btnClassCondition, btnTextCondition }) => {
 	return (
 		<form className="form" onSubmit={onSubmit} className="form">
 			{children}
-			<button className="primary-button" type="submit">
-				{cta}
+			<button
+				className={`${
+					btnClassCondition ? "primary-button" : "disabled-button"
+				}`}
+				type="submit"
+			>
+				{btnTextCondition ? "loading" : "Change name"}
 			</button>
 		</form>
 	);

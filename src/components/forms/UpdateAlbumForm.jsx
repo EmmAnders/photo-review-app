@@ -4,6 +4,9 @@ import { useCollectionContext } from "../../contexts/CollectionContext";
 //Hooks
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
+//Components
+import { Form, FormInput } from "../index";
+
 const UpdateAlbumForm = () => {
 	const {
 		updatedName,
@@ -35,29 +38,19 @@ const UpdateAlbumForm = () => {
 	return (
 		<>
 			{updateAlbum.error && <p>Error</p>}
-			<form className="form" onSubmit={handleEditName}>
-				<label>
-					<input
-						required
-						placeholder="Album name"
-						type="text"
-						onChange={handleNameInputChange}
-						value={updatedName}
-					/>
-				</label>
-				<button
-					className={`${
-						updatedName ? "primary-button" : "disabled-button"
-					}`}
-					type="submit"
-				>
-					{updateAlbum.isLoading ? (
-						<p>loading</p>
-					) : (
-						<p>Change name</p>
-					)}
-				</button>
-			</form>
+			<Form
+				onSubmit={handleEditName}
+				cta="create"
+				btnClassCondition={updatedName}
+				btnTextCondition={updateAlbum.isLoading}
+			>
+				<FormInput
+					type="text"
+					onChange={handleNameInputChange}
+					value={updatedName}
+					name="name"
+				/>
+			</Form>
 		</>
 	);
 };
