@@ -17,12 +17,10 @@ export const useUpdateDocument = () => {
 			await updateDoc(documentRef, {
 				name: name,
 			});
-
 			setSuccess(true);
 			setisLoading(false);
-			console.log("sucess");
+			
 		} catch (e) {
-			console.log("UPDATE ERROR", e.message);
 			setError(e.message);
 			setisLoading(false);
 		}

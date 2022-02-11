@@ -14,6 +14,8 @@ const CollectionContextProvider = ({ children }) => {
 	const [currentAlbumId, setCurrentAlbumId] = useState(null);
 	const [updatedName, setUpdatedName] = useState("");
 
+
+
 	const handleSelectedImages = (imageUrl, name, path, size, type, index) => {
 		setActiveCardElement(index);
 

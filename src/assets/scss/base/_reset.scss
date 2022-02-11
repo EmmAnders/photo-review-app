@@ -1,0 +1,51 @@
+@use '../abstracts' as *;
+
+body {
+	padding: 0;
+	box-sizing: border-box;
+	margin: 0 auto;
+	scroll-behavior: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: $primary-font;
+}
+
+ul,
+ol,
+li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	cursor: pointer;
+	color: $black;
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	margin-bottom: $baseline;
+	font-weight: 400;
+}
+
+p {
+	margin: 0px;
+	line-height: $baseline;
+}
+
+input {
+	box-sizing: border-box;
+	width: 100%;
+	height: $space-lg;
+	padding: 0rem $space-sm;
+	border: 1px solid $grey;
+	outline: none;
+	color: $black;
+	line-height: $baseline;
+	background-color: $white;
+}

@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { useAuthContext } from "./contexts/AuthContext";
 
-import "./assets/scss/index.scss";
 import "./App.scss";
+
+import "./assets/scss/main.scss";
 
 // Route imports
 import {
@@ -14,11 +15,7 @@ import {
 	Signup,
 	Login,
 } from "./pages/index.js";
-import {
-	RequireAuth,
-	TopNavigation,
-	SideNavigation,
-} from "./components/index.js";
+import { RequireAuth, Header, SideNav } from "./components/index.js";
 
 function App() {
 	const { user } = useAuthContext();
@@ -31,7 +28,7 @@ function App() {
 			className="site-wrapper"
 		>
 			<header>
-				<TopNavigation />
+				<Header />
 			</header>
 
 			<nav
@@ -39,7 +36,7 @@ function App() {
 					display: user ? "" : "none",
 				}}
 			>
-				<SideNavigation />
+				<SideNav />
 			</nav>
 
 			<main>
