@@ -10,6 +10,8 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useCollectionContext } from "../../contexts/CollectionContext";
 
+//Hooks
+import { useAddDocument } from "../../hooks/useAddDocument";
 //Components
 import { Form, FormInput } from "../index";
 
@@ -21,38 +23,40 @@ const CreateAlbumForm = ({ close }) => {
 		setOpenCreateAlbum,
 	} = useCollectionContext();
 
+	const addAlbum = useAddDocument();
+
 	const navigate = useNavigate();
 	const [newAlbum, setNewAlbum] = useState("");
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		if (!newAlbum == "") {
-			await addDoc(collection(db, "photoAlbums"), {
-				name: newAlbum,
-				timestamp: serverTimestamp(),
-				uid: user.uid,
-				images: selectedImages,
-				shareableLink: uuidv4() + "-" + uuidv4(),
-			});
+		if (!newAlbum == "" && !addAlbum.isLoading) {
+			addAlbum.addDocument("photoAlbums", newAlbum, selectedImages);
 		}
-
 		setSelectedImages([]);
 		setOpenCreateAlbum(false);
 		navigate("/");
 	};
 
 	return (
-		<Form onSubmit={handleSubmit} cta="create" btnClassCondition={newAlbum}>
-			<FormInput
-				label="name"
-				type="text"
-				value={newAlbum}
-				name="name"
-				onChange={(e) => setNewAlbum(e.target.value)}
-				onClick={close}
-			/>
-		</Form>
+		<>
+			{addAlbum.error && <p>Error</p>}
+			<Form
+				onSubmit={handleSubmit}
+				cta="create"
+				btnClassCondition={newAlbum}
+				btnText="Create Album"
+			>
+				<FormInput
+					label="name"
+					type="text"
+					value={newAlbum}
+					name="name"
+					onChange={(e) => setNewAlbum(e.target.value)}
+					onClick={close}
+				/>
+			</Form>
+		</>
 	);
 };
 

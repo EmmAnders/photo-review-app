@@ -1,4 +1,10 @@
-const Form = ({ onSubmit, children, btnClassCondition, btnTextCondition }) => {
+const Form = ({
+	onSubmit,
+	children,
+	btnClassCondition,
+	btnTextCondition,
+	btnText,
+}) => {
 	return (
 		<form className="form" onSubmit={onSubmit} className="form">
 			{children}
@@ -8,7 +14,7 @@ const Form = ({ onSubmit, children, btnClassCondition, btnTextCondition }) => {
 				}`}
 				type="submit"
 			>
-				{btnTextCondition ? "loading" : "Change name"}
+				{btnTextCondition ? "loading" : btnText}
 			</button>
 		</form>
 	);

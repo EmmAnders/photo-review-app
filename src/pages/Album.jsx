@@ -94,32 +94,33 @@ const Album = (props) => {
 				<>
 					{loading && <Loader />}
 					<Grid>
-						{document.images.map((img, index) => (
-							<Card
-								activeClass={
-									selectedImages.length > 0
-										? "image-card-checkbox-checked"
-										: "image-card-checkbox"
-								}
-								select={() =>
-									handleSelectedImages(
-										img.url,
-										img.name,
-										img.path,
-										img.size,
-										img.type,
-										index
-									)
-								}
-								key={index}
-								image={img}
-								activeId={
-									index === activeCardElement
-										? "image-card-active"
-										: "image-card"
-								}
-							/>
-						))}
+						{document.images &&
+							document.images.map((img, index) => (
+								<Card
+									activeClass={
+										selectedImages.length > 0
+											? "image-card-checkbox-checked"
+											: "image-card-checkbox"
+									}
+									select={() =>
+										handleSelectedImages(
+											img.url,
+											img.name,
+											img.path,
+											img.size,
+											img.type,
+											index
+										)
+									}
+									key={index}
+									image={img}
+									activeId={
+										index === activeCardElement
+											? "image-card-active"
+											: "image-card"
+									}
+								/>
+							))}
 					</Grid>
 				</>
 			)}
