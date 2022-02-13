@@ -10,14 +10,13 @@ const CollectionContextProvider = ({ children }) => {
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [openUpdateAlbum, setOpenUpdateAlbum] = useState(false);
 	const [openCreateAlbum, setOpenCreateAlbum] = useState(false);
-	const [activeCardElement, setActiveCardElement] = useState(null);
 	const [currentAlbumId, setCurrentAlbumId] = useState(null);
-	const [currentAlbumName, setCurrentAlbumName] = useState(null);
+	const [linkValue, setLinkValue] = useState("");
+	const [copied, setCopied] = useState(false);
+
 	const [updatedName, setUpdatedName] = useState("");
 
 	const handleSelectedImages = (imageUrl, name, path, size, type, index) => {
-		setActiveCardElement(index);
-
 		let imgObj = {
 			name: name,
 			path: path,
@@ -44,18 +43,18 @@ const CollectionContextProvider = ({ children }) => {
 		handleSelectedImages,
 		selectedImages,
 		setSelectedImages,
-		activeCardElement,
-		setActiveCardElement,
 		currentAlbumId,
 		setCurrentAlbumId,
-		currentAlbumName,
-		setCurrentAlbumName,
 		updatedName,
 		setUpdatedName,
 		openCreateAlbum,
 		setOpenCreateAlbum,
 		openUpdateAlbum,
 		setOpenUpdateAlbum,
+		linkValue,
+		setLinkValue,
+		copied,
+		setCopied,
 	};
 
 	return (
