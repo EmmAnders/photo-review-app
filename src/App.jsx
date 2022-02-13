@@ -35,15 +35,20 @@ function App() {
 
 				<div className="md:grid md:grid-cols-12 gap-x-16 lg:gap-x-24">
 					<nav
-						className="md:col-start-1 md:col-end-4"
-						style={{
-							display: user ? "" : "hidden",
-						}}
+						className={
+							user ? "md:col-start-1 md:col-end-4" : "hidden"
+						}
 					>
 						<SideNav />
 					</nav>
 
-					<main className="col-start-4 col-end-13">
+					<main
+						className={
+							user
+								? "col-start-4 col-end-13"
+								: "col-start-1 col-end-13"
+						}
+					>
 						<Routes>
 							<Route
 								path="/"

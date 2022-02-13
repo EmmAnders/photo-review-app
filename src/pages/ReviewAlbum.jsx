@@ -8,7 +8,7 @@ import { db } from "../firebase/config";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 //Hooks imports
-import { useCollection } from "../hooks/useCollection"; /* MasonryGrid  */ /* Modal, CollectionForm */ /* "../../components/index"; */ //styles
+import { useCollection } from "../hooks/useCollection";
 
 //Component imports
 import { MasonryGrid, Grid } from "../components/index";
