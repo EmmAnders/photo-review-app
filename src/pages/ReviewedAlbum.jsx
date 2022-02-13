@@ -31,7 +31,7 @@ const ReviewedAlbum = (props) => {
 	useEffect(() => {
 		document &&
 			setValue(
-				`https://localhost:3000/review-album/${id}/${document.shareableLink}`
+				`https://phoapp.netlify.app/review-album/${id}/${document.shareableLink}`
 			);
 	}, [document]);
 
