@@ -1,13 +1,12 @@
 //Layout
 import Header from "./layout/Header";
 import SideNav from "./layout/SideNav";
-import MasonryGrid from "./layout/MasonryGrid";
 import Grid from "./layout/Grid";
+import AlbumModule from "./AlbumModule";
 
 //Components
-import FormInput from "./form/FormInput";
-import Form from "./form/Form";
-
+import FormInput from "./forms/FormInput";
+import Form from "./forms/Form";
 import CreateAlbumForm from "./forms/CreateAlbumForm";
 import AlbumList from "./AlbumList";
 import Dropzone from "./Dropzone";
@@ -22,11 +21,11 @@ export {
 	Header,
 	SideNav,
 	AlbumList,
+	AlbumModule,
 	Modal,
 	CreateAlbumForm,
 	UpdateAlbumForm,
 	Dropzone,
-	MasonryGrid,
 	Grid,
 	Card,
 	RequireAuth,

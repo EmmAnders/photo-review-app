@@ -11,7 +11,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useCollection } from "../hooks/useCollection";
 
 //Component imports
-import { MasonryGrid, Grid } from "../components/index";
+import { Grid } from "../components/index";
 
 //Icon imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,7 +25,6 @@ const ReviewAlbum = () => {
 	const [totalImages, setTotalImages] = useState(null);
 	const [selected, setSelected] = useState([]);
 	const [unselected, setUnselected] = useState([]);
-	const [openSummary, setOpenSummary] = useState(false);
 
 	const photoAlbumCollection = useCollection("photoAlbums", [
 		"shareableLink",
@@ -39,11 +38,6 @@ const ReviewAlbum = () => {
 		linkId,
 	]);
 
-	/* 	const {
-		documents: document,
-		loading,
-	} = useCollection("reviewedPhotoAlbums", ["shareableLink", "==", linkId]);
- */
 	useEffect(() => {
 		//Add image objects from document to image array
 		photoAlbumCollection.documents &&
