@@ -25,6 +25,7 @@ const Albums = () => {
 						route={"album"}
 						photoAlbums={documents}
 						collection="photoAlbums"
+						
 					/>
 				)}
 			</div>

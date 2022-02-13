@@ -4,7 +4,7 @@ import { useCollectionContext } from "../contexts/CollectionContext";
 
 //Hooks
 import useComponentVisible from "../hooks/useComponentVisible";
-import { useUpdateDocument } from "../hooks/useUpdateDocument";
+import { useDeleteDocument } from "../hooks/useDeleteDocument";
 
 //Components
 import { Modal, UpdateAlbumForm, Dropdown } from "./index";
@@ -23,9 +23,7 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 		setCurrentAlbumName,
 	} = useCollectionContext();
 
-	const handleClickToAlbumId = (id) => {
-		navigate(`/${route}/${id}`);
-	};
+	const deleteAlbum = useDeleteDocument();
 
 	const {
 		ref,
@@ -42,13 +40,20 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 			)
 	);
 
+	const handleClickToAlbumId = (id) => {
+		navigate(`/${route}/${id}`);
+	};
+
 	const handleUpdateAlbum = () => {
 		setOpenUpdateAlbum(true);
 		setIsComponentVisible(null);
 	};
 
-	const handleDeleteAlbum = () => {
-		setIsComponentVisible(null);
+	const handleDeleteAlbum = (albumId) => {
+		if (!deleteAlbum.isLoading) {
+			deleteAlbum.deleteDocument(collection, albumId);
+		}
+		/* setIsComponentVisible(null); */
 	};
 
 	const toggleDropdown = (id) => {
@@ -107,7 +112,7 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 										{album.name}
 									</p>
 									<li
-										className="flex items-center px-4 py-2 border-b border-neutral-300 "
+										className="flex items-center px-4 py-2 border-b border-neutral-300 cursor-pointer "
 										onClick={handleUpdateAlbum}
 									>
 										<FontAwesomeIcon
@@ -116,18 +121,22 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 										></FontAwesomeIcon>
 										<p className="text-sm">Edit name</p>
 									</li>
-									<li
-										className="flex items-center px-4 py-2 border-b border-neutral-300 "
-										onClick={handleDeleteAlbum}
-									>
+									<li className="flex items-center px-4 py-2 border-b border-neutral-300 cursor-pointer">
 										<FontAwesomeIcon
 											className="mr-1 h-3"
 											icon={faTrash}
 										></FontAwesomeIcon>
-										<p className="text-sm">Delete</p>
+										<p
+											onClick={() =>
+												handleDeleteAlbum(album.id)
+											}
+											className="text-sm"
+										>
+											Delete
+										</p>
 									</li>
 									<li
-										className="flex items-center px-4 py-2 border-b border-neutral-300 "
+										className="flex items-center px-4 py-2 border-b border-neutral-300 cursor-pointer"
 										onClick={handleUpdateAlbum}
 									>
 										<FontAwesomeIcon
