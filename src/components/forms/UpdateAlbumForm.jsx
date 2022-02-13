@@ -12,7 +12,6 @@ const UpdateAlbumForm = ({ collection }) => {
 		updatedName,
 		setUpdatedName,
 		currentAlbumId,
-		currentAlbumName,
 		setOpenUpdateAlbum,
 	} = useCollectionContext();
 
@@ -37,9 +36,8 @@ const UpdateAlbumForm = ({ collection }) => {
 			{updateAlbum.error && <p>Error</p>}
 			<Form
 				onSubmit={handleEditName}
-				cta="create"
 				btnClassCondition={updatedName}
-				btnTextCondition={updateAlbum.isLoading}
+				btnText="Change name"
 			>
 				<FormInput
 					type="text"
