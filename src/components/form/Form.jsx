@@ -6,12 +6,12 @@ const Form = ({
 	btnText,
 }) => {
 	return (
-		<form className="form" onSubmit={onSubmit} className="form">
+		<form onSubmit={onSubmit}>
 			{children}
 			<button
 				className={`${
-					btnClassCondition ? "primary-button" : "disabled-button"
-				}`}
+					btnClassCondition ? "opacity-100  w-full " : ""
+				} bg-black text-white rounded-full w-full opacity-20  mt-4 py-2 `}
 				type="submit"
 			>
 				{btnTextCondition ? "loading" : btnText}

@@ -7,42 +7,24 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 //Hooks imports
 import { useCollection } from "../hooks/useCollection";
-import { useUpdateDocument } from "../hooks/useUpdateDocument";
 
 //Component imports
-import { Modal, CreateAlbumForm, AlbumList } from "../components/index";
+import { AlbumList } from "../components/index";
 
 const Albums = () => {
 	const navigate = useNavigate();
 	const { user } = useAuthContext();
-	const { updatedName, currentAlbumId } = useCollectionContext();
+	const {} = useCollectionContext();
 	const { documents } = useCollection("photoAlbums", ["uid", "==", user.uid]);
-	/* const updateAlbum = useUpdateDocument(); */
 
-	/* 	useEffect(() => {
-		console.log(currentAlbumId);
-	}, [currentAlbumId]); */
-
-	/* const handleEditName = (e) => {
-		e.preventDefault();
-
-		if (!updateAlbum.isLoading) {
-			updateAlbum.updateDocument(updatedName, "photoAlbums", id);
-			console.log("success");
-		}
-		console.log("fail");
-	};
- */
 	return (
 		<section className="albums">
 			<div>
-				{/* {updateAlbum.isLoading && <p>loading</p>}
-				{updateAlbum.error && <p>Error</p>} */}
 				{documents && (
 					<AlbumList
 						route={"album"}
 						photoAlbums={documents}
-						/* 	handleEditName={handleEditName} */
+						collection="photoAlbums"
 					/>
 				)}
 			</div>

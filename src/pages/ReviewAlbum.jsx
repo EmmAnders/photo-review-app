@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 //Firebase imports
 import { db } from "../firebase/config";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 //Hooks imports
-import { useCollection } from "../hooks/useCollection"; /* MasonryGrid  */ /* Modal, CollectionForm */ /* "../../components/index"; */ //styles
+import { useCollection } from "../hooks/useCollection";
 
 //Component imports
 import { MasonryGrid, Grid } from "../components/index";
@@ -26,16 +27,35 @@ const ReviewAlbum = () => {
 	const [unselected, setUnselected] = useState([]);
 	const [openSummary, setOpenSummary] = useState(false);
 
-	const { documents: document, loading } = useCollection("photoAlbums", [
+	const photoAlbumCollection = useCollection("photoAlbums", [
 		"shareableLink",
 		"==",
 		linkId,
 	]);
 
+	const reviewedPhotoAlbumCollection = useCollection("reviewedPhotoAlbums", [
+		"shareableLink",
+		"==",
+		linkId,
+	]);
+
+	/* 	const {
+		documents: document,
+		loading,
+	} = useCollection("reviewedPhotoAlbums", ["shareableLink", "==", linkId]);
+ */
 	useEffect(() => {
 		//Add image objects from document to image array
-		document &&
-			document.map((d) => {
+		photoAlbumCollection.documents &&
+			photoAlbumCollection.documents.map((d) => {
+				let images = d.images;
+				setImages(images);
+				setTotalImages(d.images.length);
+				setDoc(d);
+			});
+
+		reviewedPhotoAlbumCollection.documents &&
+			reviewedPhotoAlbumCollection.documents.map((d) => {
 				let images = d.images;
 				setImages(images);
 				setTotalImages(d.images.length);
@@ -43,7 +63,10 @@ const ReviewAlbum = () => {
 			});
 		setSelected([]);
 		setUnselected([]);
-	}, [document]);
+	}, [
+		photoAlbumCollection.documents,
+		reviewedPhotoAlbumCollection.documents,
+	]);
 
 	const handleReview = (
 		imageUrl,
@@ -87,6 +110,7 @@ const ReviewAlbum = () => {
 				uid: doc.uid,
 				images: selected,
 				reviewedAlbum: doc.id,
+				shareableLink: uuidv4() + "-" + uuidv4(),
 			});
 			setSelected([]);
 			setUnselected([]);
@@ -96,37 +120,17 @@ const ReviewAlbum = () => {
 		}
 	};
 
-	const handleOpenSummary = () => {
-		setOpenSummary(!openSummary);
-	};
-
 	return (
-		<section className="customer-selection">
-			<section className="customer-selection-images">
-				<MasonryGrid>
+		<section className="md:grid md:grid-cols-12 gap-x-16">
+			<section className="md:col-start-1 md:col-end-10 mb-16 md:mb-0">
+				<Grid>
 					{images &&
 						images.map((img, index) => (
 							<div key={index}>
 								<img src={img.url} />
-								<div className="select-btns">
-									<p
-										onClick={() =>
-											handleReview(
-												img.url,
-												img.name,
-												img.path,
-												img.size,
-												img.type,
-												images,
-												setImages,
-												selected,
-												setSelected
-											)
-										}
-									>
-										+
-									</p>
-									<p
+								<div className="flex justify-evenly items-center mt-3">
+									<div
+										className="bg-neutral-200 w-6 h-6 rounded-full text-center cursor-pointer"
 										onClick={() =>
 											handleReview(
 												img.url,
@@ -142,124 +146,114 @@ const ReviewAlbum = () => {
 										}
 									>
 										-
-									</p>
+									</div>
+									<div
+										className="bg-neutral-200 w-6 h-6 rounded-full text-center cursor-pointer"
+										onClick={() =>
+											handleReview(
+												img.url,
+												img.name,
+												img.path,
+												img.size,
+												img.type,
+												images,
+												setImages,
+												selected,
+												setSelected
+											)
+										}
+									>
+										+
+									</div>
 								</div>
 							</div>
 						))}
-				</MasonryGrid>
+				</Grid>
 			</section>
 
-			<section
-				style={{
-					height: !openSummary ? "0" : "70vh",
-				}}
-				className="customer-selection-summary"
-			>
-				{selected.length < 1 && unselected.length < 1 && (
-					<p className="selection-msg">0 selected images </p>
-				)}
-
-				<button
-					onClick={handleOpenSummary}
-					className="customer-selection-summary-btn"
-				>
-					{openSummary ? (
-						<p>Close</p>
-					) : (
-						<p>Summary ({selected.length + "/" + totalImages})</p>
-					)}
-				</button>
-				<div className="customer-selection-summary-choices">
-					{openSummary && (
-						<div
-							className={`customer-selection-summary-selected `}
-							style={{
-								display:
-									selected.length < 1 ? "none" : "static",
-							}}
-						>
-							<h3>Favorites</h3>
-							<Grid>
-								{selected &&
-									selected.map((img, index) => (
-										<div className="img-wrapper">
-											<img
-												key={index}
-												src={img.url}
-											></img>
+			<section className="md:col-start-10 md:col-end-13 w-full">
+				<div>
+					<div className="mb-4">
+						<h3 className="text-xl mb-2">Favorites</h3>
+						<div className="grid grid-cols-2 gap-2">
+							{selected &&
+								selected.map((img, index) => (
+									<div className="h-20 relative">
+										<img
+											className="h-full w-full bg-center bg-cover"
+											key={index}
+											src={img.url}
+										></img>
+										<div
+											className=" flex justify-center items-center w-7 h-7 rounded-full bg-neutral-300  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+											onClick={() =>
+												handleReview(
+													img.url,
+													img.name,
+													img.path,
+													img.size,
+													img.type,
+													selected,
+													setSelected,
+													images,
+													setImages
+												)
+											}
+										>
 											<FontAwesomeIcon
-												onClick={() =>
-													handleReview(
-														img.url,
-														img.name,
-														img.path,
-														img.size,
-														img.type,
-														selected,
-														setSelected,
-														images,
-														setImages
-													)
-												}
+												className="w-4 h-4 text-center"
 												icon={faUndo}
-												className="regret-icon"
 											></FontAwesomeIcon>
 										</div>
-									))}
-							</Grid>
+									</div>
+								))}
 						</div>
-					)}
-					{openSummary && (
-						<>
-							<div
-								style={{
-									display:
-										unselected.length < 1
-											? "none"
-											: "static",
-								}}
-								className="customer-selection-summary-unselected"
-							>
-								<h3>Unselected</h3>
-								<Grid>
-									{unselected &&
-										unselected.map((img, index) => (
-											<div className="img-wrapper">
-												<img
-													key={index}
-													src={img.url}
-												></img>
-												<FontAwesomeIcon
-													onClick={() =>
-														handleReview(
-															img.url,
-															img.name,
-															img.path,
-															img.size,
-															img.type,
-															unselected,
-															setUnselected,
-															images,
-															setImages
-														)
-													}
-													icon={faUndo}
-													className="regret-icon"
-												></FontAwesomeIcon>
-											</div>
-										))}
-								</Grid>
-							</div>
-							<div className="save-selection">
-								<button
-									className="primary-button"
-									onClick={handleSubmit}
-								>
-									Save ({selected.length}/{totalImages})
-								</button>
-							</div>
-						</>
-					)}
+					</div>
+
+					<div className="mb-4">
+						<h3 className="text-xl mb-2">Unselected</h3>
+						<div className="grid grid-cols-2 gap-2">
+							{unselected &&
+								unselected.map((img, index) => (
+									<div className="h-20 relative">
+										<img
+											className="h-full w-full bg-center bg-cover"
+											key={index}
+											src={img.url}
+										></img>
+										<div
+											className=" flex justify-center items-center w-7 h-7 rounded-full bg-neutral-300  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+											onClick={() =>
+												handleReview(
+													img.url,
+													img.name,
+													img.path,
+													img.size,
+													img.type,
+													unselected,
+													setUnselected,
+													images,
+													setImages
+												)
+											}
+										>
+											<FontAwesomeIcon
+												className="w-4 h-4 text-center"
+												icon={faUndo}
+											></FontAwesomeIcon>
+										</div>
+									</div>
+								))}
+						</div>
+					</div>
+					<div>
+						<button
+							className="w-full bg-black text-white rounded-full px-8 py-3 mt-4"
+							onClick={handleSubmit}
+						>
+							Save ({selected.length}/{totalImages})
+						</button>
+					</div>
 				</div>
 			</section>
 		</section>

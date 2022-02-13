@@ -1,16 +1,23 @@
 const ImageCard = ({ select, image, activeClass }) => {
 	return (
-		<div className={`image-card ${activeClass}`}>
-			<label className="checkbox">
-				<input type="checkbox" className="checkbox-input" />
-				<span onClick={select} className="checkbox-circle"></span>
-			</label>
+		<div className="relative h-full flex  items-stretch flex-col">
+			<div className="h-20">
+				<img
+					className="h-full w-full bg-center bg-cover"
+					src={image.url}
+				/>
+				<label className="absolute top-1 left-1 ">
+					<input
+						onClick={select}
+						type="checkbox"
+						className="checkbox-input"
+					/>
+					<span onClick={select} className="checkbox-circle"></span>
+				</label>
+			</div>
 
-			<div className="image-card-content">
-				<div className="img-wrapper">
-					<img className="img" src={image.url} />
-				</div>
-				<p>{image.name}</p>
+			<div className="">
+				<p className="text-xs pt-2">{image.name}</p>
 			</div>
 		</div>
 	);

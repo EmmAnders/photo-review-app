@@ -7,11 +7,12 @@ import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 //Components
 import { Form, FormInput } from "../index";
 
-const UpdateAlbumForm = () => {
+const UpdateAlbumForm = ({ collection }) => {
 	const {
 		updatedName,
 		setUpdatedName,
 		currentAlbumId,
+		currentAlbumName,
 		setOpenUpdateAlbum,
 	} = useCollectionContext();
 
@@ -25,11 +26,7 @@ const UpdateAlbumForm = () => {
 		e.preventDefault();
 
 		if (!updateAlbum.isLoading) {
-			updateAlbum.updateDocument(
-				updatedName,
-				"photoAlbums",
-				currentAlbumId
-			);
+			updateAlbum.updateDocument(updatedName, collection, currentAlbumId);
 			setUpdatedName("");
 			setOpenUpdateAlbum(false);
 		}

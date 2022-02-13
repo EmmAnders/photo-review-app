@@ -12,9 +12,8 @@ const CollectionContextProvider = ({ children }) => {
 	const [openCreateAlbum, setOpenCreateAlbum] = useState(false);
 	const [activeCardElement, setActiveCardElement] = useState(null);
 	const [currentAlbumId, setCurrentAlbumId] = useState(null);
+	const [currentAlbumName, setCurrentAlbumName] = useState(null);
 	const [updatedName, setUpdatedName] = useState("");
-
-
 
 	const handleSelectedImages = (imageUrl, name, path, size, type, index) => {
 		setActiveCardElement(index);
@@ -49,6 +48,8 @@ const CollectionContextProvider = ({ children }) => {
 		setActiveCardElement,
 		currentAlbumId,
 		setCurrentAlbumId,
+		currentAlbumName,
+		setCurrentAlbumName,
 		updatedName,
 		setUpdatedName,
 		openCreateAlbum,

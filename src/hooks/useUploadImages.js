@@ -16,7 +16,7 @@ const useUploadImages = () => {
 
 	const { user } = useAuthContext();
 
-	const upload = async (image, documentId) => {
+	const upload = async (image, documentId, collection) => {
 		setError(null);
 		setIsError(null);
 		setIsSuccess(null);
@@ -45,7 +45,7 @@ const useUploadImages = () => {
 			await uploadTask.then();
 
 			const downloadUrl = await getDownloadURL(storageRef);
-			const documentRef = doc(db, "photoAlbums", documentId);
+			const documentRef = doc(db, collection, documentId);
 
 			await updateDoc(documentRef, {
 				images: arrayUnion({

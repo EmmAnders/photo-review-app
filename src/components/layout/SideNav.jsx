@@ -10,25 +10,28 @@ import { Modal, CreateAlbumForm, Form, FormInput } from "../index";
 
 const SideNavigation = () => {
 	const { user } = useAuthContext();
-	const { openCreateAlbum, setOpenCreateAlbum } = useCollectionContext();
+	const { setOpenCreateAlbum } = useCollectionContext();
 
 	return (
 		<>
 			{user && (
-				<ul className="site-sidebar">
-					<li className="site-sidebar-create-btn">
-						<button onClick={() => setOpenCreateAlbum(true)}>
+				<ul className="flex justify-between items-center md:items-start mb-8 md:mb-0 md:flex-col ">
+					<li className="fixed bottom-2 left-2 right-2 md:static z-20 ">
+						<button
+							className="w-full bg-black text-white rounded-full px-8 py-3 "
+							onClick={() => setOpenCreateAlbum(true)}
+						>
 							<FontAwesomeIcon
-								className="site-sidebar-create-btn-plus-icon"
+								className="text-white mr-2"
 								icon={faPlus}
 							></FontAwesomeIcon>
 							New Album
 						</button>
 					</li>
-					<li>
+					<li className="md:pt-8 md:pb-4 ">
 						<NavLink
 							className={(navData) =>
-								navData.isActive ? "active" : ""
+								navData.isActive ? "text-neutral-500" : ""
 							}
 							to="/albums"
 						>
@@ -46,16 +49,6 @@ const SideNavigation = () => {
 						</NavLink>
 					</li>
 				</ul>
-			)}
-
-			{openCreateAlbum && (
-				<>
-					<Modal
-						title="Create Album"
-						body={<CreateAlbumForm />}
-						close={() => setOpenCreateAlbum(false)}
-					/>
-				</>
 			)}
 		</>
 	);

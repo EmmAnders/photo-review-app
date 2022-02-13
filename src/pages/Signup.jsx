@@ -38,33 +38,47 @@ const Signup = () => {
 	};
 
 	return (
-		<div className="signup-page">
-			<Form onSubmit={handleSubmit} cta="Create account">
-				<FormInput
-					label="email"
-					type="email"
-					value={form.email}
-					name="email"
-					onChange={handleFormChange}
-				/>
-				<FormInput
-					label="password"
-					type="password"
-					name="password"
-					value={form.password}
-					onChange={handleFormChange}
-				/>
-				<FormInput
-					label="password confirmation"
-					type="password"
-					name="passwordConfirmation"
-					value={form.passwordConfirmation}
-					onChange={handleFormChange}
-				/>
-			</Form>
-			<p className="form-redirect">
-				Already have an account? <Link to="/login">Login</Link>{" "}
-			</p>
+		<div className="signup-page w-full flex justify-center items-center">
+			<div className="w-1/2">
+				<Form
+					onSubmit={handleSubmit}
+					btnText="Signup"
+					btnClassCondition={
+						form.email && form.password && form.passwordConfirmation
+					}
+				>
+					<FormInput
+						label="Email"
+						type="email"
+						value={form.email}
+						name="email"
+						onChange={handleFormChange}
+						classes="mb-4"
+					/>
+					<FormInput
+						label="Password"
+						type="password"
+						name="password"
+						value={form.password}
+						onChange={handleFormChange}
+						classes="mb-4"
+					/>
+					<FormInput
+						label="password confirmation"
+						type="password"
+						name="passwordConfirmation"
+						value={form.passwordConfirmation}
+						onChange={handleFormChange}
+						classes="mb-2"
+					/>
+				</Form>
+				<p className="mt-2">
+					Already have an account?{" "}
+					<Link className="underline" to="/login">
+						Login
+					</Link>{" "}
+				</p>
+			</div>
 		</div>
 	);
 };

@@ -43,12 +43,11 @@ const CreateAlbumForm = ({ close }) => {
 			{addAlbum.error && <p>Error</p>}
 			<Form
 				onSubmit={handleSubmit}
-				cta="create"
 				btnClassCondition={newAlbum}
 				btnText="Create Album"
 			>
 				<FormInput
-					label="name"
+					label="Name"
 					type="text"
 					value={newAlbum}
 					name="name"
