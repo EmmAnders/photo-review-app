@@ -1,7 +1,0 @@
-@use '../abstracts' as *;
-
-.dropzone-container {
-	@include flex-center;
-	@include primary-button;
-	width: 100%;
-}

@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 //Context imports
 import { useCollectionContext } from "../contexts/CollectionContext";
@@ -7,57 +9,76 @@ import { useCollectionContext } from "../contexts/CollectionContext";
 import { useDocument } from "../hooks/useDocument";
 
 //Component imports
-import {
-	Grid,
-	CreateAlbumForm,
-	Card,
-	Modal,
-	Dropzone,
-	Loader,
-} from "../components/index";
+import { Grid, Card, Dropzone, Loader } from "../components/index";
 
-const ReviewedAlbum = () => {
+//Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+
+const ReviewedAlbum = (props) => {
 	const { id } = useParams();
 	const { document, loading } = useDocument("reviewedPhotoAlbums", id);
 	const {
 		handleSelectedImages,
 		selectedImages,
 		activeCardElement,
-		openCreateAlbum,
 		setOpenCreateAlbum,
 	} = useCollectionContext();
 
+	const [value, setValue] = useState("");
+	const [copied, setCopied] = useState(false);
+
+	useEffect(() => {
+		document &&
+			setValue(
+				`https://localhost:3000/review-album/${id}/${document.shareableLink}`
+			);
+	}, [document]);
+
 	return (
-		<div className="album">
+		<div className="reviewed-album">
 			{document && (
-				<div className="album-header">
-					<h1>
+				<div className="flex justify-between items-center mb-8">
+					<h1 className="text-3xl">
 						Album {">"} {document.name}
 					</h1>
+
+					<CopyToClipboard
+						options={{ debug: props.debug, message: "" }}
+						text={value}
+						onCopy={() => setCopied(true)}
+					>
+						<span>
+							<FontAwesomeIcon
+								className="mr-2"
+								icon={faLink}
+							></FontAwesomeIcon>
+							<span className="text-md">
+								{copied ? "Copied!" : "Copy link"}
+							</span>
+						</span>
+					</CopyToClipboard>
 				</div>
 			)}
 
-			<div className="album-create-btns">
+			<div className="grid grid-cols-12 gap-x-3 mb-16">
+				<Dropzone
+					className="col-start-1 col-end-5  md:col-end-6 bg-gray-200 text-black rounded-full md:px-8 py-3 text-center"
+					images={document && document.images}
+					collection="reviewedPhotoAlbums"
+				/>
+
 				{selectedImages.length > 0 && (
 					<>
 						<button
-							className="primary-button"
+							className="col-start-5 col-end-10 md:col-start-6 md:col-end-11 bg-gray-200 text-black text-center rounded-full md:px-8 py-3"
 							onClick={() => setOpenCreateAlbum(true)}
 						>
 							Create new Album ({selectedImages.length})
 						</button>
 					</>
 				)}
-				<Dropzone images={document && document.images} />
 			</div>
-
-			{openCreateAlbum && (
-				<Modal
-					title="Create Album"
-					body={<CreateAlbumForm />}
-					close={() => setOpenCreateAlbum(false)}
-				/>
-			)}
 
 			{document && (
 				<>

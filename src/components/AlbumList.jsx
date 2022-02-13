@@ -59,21 +59,24 @@ const AlbumList = ({ photoAlbums, route }) => {
 
 	return (
 		<>
-			<ul className="album-list">
-				<li className="album-list-labels">
-					<p>Name</p>
-					<p>Created at</p>
+			<ul className="album-list pb-16 md:pb-0">
+				<li className="flex justify-between items-center mb-4">
+					<p className="">Name</p>
+					<p className="">Created at</p>
 					<p></p>
 				</li>
 
 				{photoAlbums.map((album) => (
-					<li className="album-list-item" key={album.id}>
+					<li
+						className="relative border rounded-md px-4 py-2 mb-4 border-neutral-300 flex justify-between items-center"
+						key={album.id}
+					>
 						<div
 							onClick={() => handleClickToAlbumId(album.id)}
-							className="album-list-item-title"
+							className="flex items-center w-1/3"
 						>
 							<FontAwesomeIcon
-								className="icon"
+								className="mr-2"
 								icon={faFolder}
 							></FontAwesomeIcon>
 
@@ -83,17 +86,14 @@ const AlbumList = ({ photoAlbums, route }) => {
 						</div>
 						<div
 							onClick={() => handleClickToAlbumId(album.id)}
-							className="album-list-item-created-at"
+							className="w-1/3"
 						>
-							<div>
+							<div className=" text-center">
 								date
 								{/* {album.timestamp.toDate().toDateString()} */}
 							</div>
 						</div>
-						<div
-							key={album.id}
-							className="album-list-item-more-btn"
-						>
+						<div key={album.id} className=" w-1/3 text-right">
 							<FontAwesomeIcon
 								onClick={() => toggleDropdown(album.id)}
 								icon={faEllipsisH}

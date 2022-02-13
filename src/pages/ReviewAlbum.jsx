@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 //Firebase imports
 import { db } from "../firebase/config";
@@ -26,16 +27,35 @@ const ReviewAlbum = () => {
 	const [unselected, setUnselected] = useState([]);
 	const [openSummary, setOpenSummary] = useState(false);
 
-	const { documents: document, loading } = useCollection("photoAlbums", [
+	const photoAlbumCollection = useCollection("photoAlbums", [
 		"shareableLink",
 		"==",
 		linkId,
 	]);
 
+	const reviewedPhotoAlbumCollection = useCollection("reviewedPhotoAlbums", [
+		"shareableLink",
+		"==",
+		linkId,
+	]);
+
+	/* 	const {
+		documents: document,
+		loading,
+	} = useCollection("reviewedPhotoAlbums", ["shareableLink", "==", linkId]);
+ */
 	useEffect(() => {
 		//Add image objects from document to image array
-		document &&
-			document.map((d) => {
+		photoAlbumCollection.documents &&
+			photoAlbumCollection.documents.map((d) => {
+				let images = d.images;
+				setImages(images);
+				setTotalImages(d.images.length);
+				setDoc(d);
+			});
+
+		reviewedPhotoAlbumCollection.documents &&
+			reviewedPhotoAlbumCollection.documents.map((d) => {
 				let images = d.images;
 				setImages(images);
 				setTotalImages(d.images.length);
@@ -43,7 +63,10 @@ const ReviewAlbum = () => {
 			});
 		setSelected([]);
 		setUnselected([]);
-	}, [document]);
+	}, [
+		photoAlbumCollection.documents,
+		reviewedPhotoAlbumCollection.documents,
+	]);
 
 	const handleReview = (
 		imageUrl,
@@ -87,6 +110,7 @@ const ReviewAlbum = () => {
 				uid: doc.uid,
 				images: selected,
 				reviewedAlbum: doc.id,
+				shareableLink: uuidv4() + "-" + uuidv4(),
 			});
 			setSelected([]);
 			setUnselected([]);
@@ -149,12 +173,7 @@ const ReviewAlbum = () => {
 				</MasonryGrid>
 			</section>
 
-			<section
-				style={{
-					height: !openSummary ? "0" : "70vh",
-				}}
-				className="customer-selection-summary"
-			>
+			<section className="customer-selection-summary">
 				{selected.length < 1 && unselected.length < 1 && (
 					<p className="selection-msg">0 selected images </p>
 				)}
@@ -211,15 +230,7 @@ const ReviewAlbum = () => {
 					)}
 					{openSummary && (
 						<>
-							<div
-								style={{
-									display:
-										unselected.length < 1
-											? "none"
-											: "static",
-								}}
-								className="customer-selection-summary-unselected"
-							>
+							<div className="customer-selection-summary-unselected">
 								<h3>Unselected</h3>
 								<Grid>
 									{unselected &&
@@ -251,10 +262,7 @@ const ReviewAlbum = () => {
 								</Grid>
 							</div>
 							<div className="save-selection">
-								<button
-									className="primary-button"
-									onClick={handleSubmit}
-								>
+								<button onClick={handleSubmit}>
 									Save ({selected.length}/{totalImages})
 								</button>
 							</div>

@@ -16,13 +16,15 @@ const TopNavigation = () => {
 
 	return (
 		<>
-			<div className="logo">
-				<Link to="/albums">LOGO</Link>
+			<div className="text-2xl">
+				<Link to="/albums">Photo Review</Link>
 			</div>
 			{user ? (
-				<div onClick={handleLogout}>Logout</div>
+				<div className="uppercase" onClick={handleLogout}>
+					Logout
+				</div>
 			) : (
-				<div>
+				<div className="uppercase">
 					<Link to="/login">Login</Link>
 				</div>
 			)}

@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 //Hooks Imports
 import useUploadImages from "../hooks/useUploadImages";
 
-const UploadImageDropzone = ({ images }) => {
+const UploadImageDropzone = ({ images, className, collection }) => {
 	const { id } = useParams();
 	const uploadImages = useUploadImages();
 	const onDrop = useCallback((acceptedFiles) => {
@@ -13,7 +13,7 @@ const UploadImageDropzone = ({ images }) => {
 			return;
 		}
 
-		uploadImages.upload(acceptedFiles[0], id);
+		uploadImages.upload(acceptedFiles[0], id, collection);
 	}, []);
 
 	const {
@@ -29,30 +29,28 @@ const UploadImageDropzone = ({ images }) => {
 	});
 
 	return (
-		<>
-			<div {...getRootProps()} className={`dropzone-container  `}>
-				<input {...getInputProps()} className="dropzone " />
-				{isDragActive ? (
-					isDragAccept ? (
-						<p>Drop your image</p>
-					) : (
-						<p>Drop didn't work</p>
-					)
+		<div {...getRootProps()} className={className}>
+			<input {...getInputProps()} />
+			{isDragActive ? (
+				isDragAccept ? (
+					<p>Drop your image</p>
 				) : (
-					<>
-						{uploadImages.progress !== null ? (
-							<p>{uploadImages.progress}</p>
-						) : (
-							<p>Upload</p>
-						)}
-					</>
-				)}
-				{/* 	<div>
-					{uploadImages.isError && <p>{uploadImages.error}</p>}
-					{uploadImages.isSuccess && <p>{uploadImages.success}</p>}
-				</div> */}
+					<p>Drop didn't work</p>
+				)
+			) : (
+				<>
+					{uploadImages.progress !== null ? (
+						<p>{uploadImages.progress}</p>
+					) : (
+						<p>Upload</p>
+					)}
+				</>
+			)}
+			<div>
+				{uploadImages.isError && <p>{uploadImages.error}</p>}
+				{uploadImages.isSuccess && <p>{uploadImages.success}</p>}
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -1,41 +1,23 @@
-@use './assets/scss/abstracts' as *;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.site-wrapper {
-	margin: $space-unit;
+/* * {
+	outline: 1px solid red;
+	outline-offset: -1px;
+} */
 
-	@include tablet {
-		display: grid;
-		grid-template-areas:
-			"header header"
-			"nav  main";
+* {
+	font-weight: 200;
+}
 
-		grid-template-columns: 30% 70%;
+body {
+	font-family: "Karla", sans-serif;
+}
 
-		header {
-			grid-area: header;
-			position: fixed;
-			top: 0;
-			left: $space-unit;
-			right: $space-unit;
-			background: $white;
-			padding-top: $space-xs;
-		}
-
-		nav {
-			grid-area: nav;
-			position: fixed;
-			margin: $space-xl 0rem;
-			padding-right: $space-xl;
-			height: 100%;
-		}
-
-		main {
-			grid-area: main;
-			margin-top: $space-xl;
-		}
-	}
-
-	@include desktop {
-		grid-template-columns: 20% 80%;
-	}
+.container {
+	width: 100%;
+	max-width: 1284px;
+	margin-left: auto;
+	margin-right: auto;
 }
