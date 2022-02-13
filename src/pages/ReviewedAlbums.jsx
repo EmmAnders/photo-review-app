@@ -24,6 +24,7 @@ const ReviewedAlbums = () => {
 					<AlbumList
 						route={"reviewed-album"}
 						photoAlbums={documents}
+						collection="reviewedPhotoAlbums"
 					/>
 				)}
 			</div>

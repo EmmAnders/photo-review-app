@@ -27,13 +27,13 @@ function App() {
 	const { openCreateAlbum, setOpenCreateAlbum } = useCollectionContext();
 
 	return (
-		<div className="relative h-full w-full">
-			<div className="container px-4 xl:px-0 ">
-				<header className="flex justify-between items-center mt-12 mb-12 md:mb-24">
+		<div id="app" className="relative h-full py-16">
+			<div className="px-4 xl:px-0 container h-full">
+				<header className="flex justify-between items-center pb-24">
 					<Header />
 				</header>
 
-				<div className="md:grid md:grid-cols-12 gap-x-16 lg:gap-x-24">
+				<div className="md:grid md:grid-cols-12 gap-x-16 lg:gap-x-24 h-full ">
 					<nav
 						className={
 							user ? "md:col-start-1 md:col-end-4" : "hidden"
