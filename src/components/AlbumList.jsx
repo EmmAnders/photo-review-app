@@ -7,7 +7,7 @@ import useComponentVisible from "../hooks/useComponentVisible";
 import { useDeleteDocument } from "../hooks/useDeleteDocument";
 
 //Components
-import { Modal, UpdateAlbumForm, Dropdown } from "./index";
+import { Modal, UpdateAlbumForm } from "./index";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-regular-svg-icons";
@@ -66,9 +66,9 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 		<>
 			<ul className="album-list pb-16 md:pb-0">
 				<li className="flex justify-between items-center mb-4">
-					<p className="">Name</p>
-					<p className="">Created at</p>
-					<p></p>
+					<p className="w-1/3">Name</p>
+					<p className="w-1/3 text-center">Created at</p>
+					<p className="w-1/3"></p>
 				</li>
 
 				{photoAlbums.map((album) => (
@@ -81,7 +81,7 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 							className="flex items-center w-1/3"
 						>
 							<FontAwesomeIcon
-								className="mr-2"
+								className="mr-2 text-neutral-600"
 								icon={faFolder}
 							></FontAwesomeIcon>
 
@@ -93,14 +93,14 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 							onClick={() => handleClickToAlbumId(album.id)}
 							className="w-1/3"
 						>
-							<div className=" text-center">
-								date
-								{/* {album.timestamp.toDate().toDateString()} */}
+							<div className="text-center">
+								{/* 	{album.timestamp.toDate().toDateString()} */}
 							</div>
 						</div>
 						<div key={album.id} className=" w-1/3 text-right">
 							<FontAwesomeIcon
 								onClick={() => toggleDropdown(album.id)}
+								className="text-neutral-600"
 								icon={faEllipsisH}
 							></FontAwesomeIcon>
 						</div>
@@ -143,7 +143,7 @@ const AlbumList = ({ photoAlbums, collection, route }) => {
 											className="mr-1 h-3"
 											icon={faLink}
 										></FontAwesomeIcon>
-										<p className="text-sm">Share album</p>
+										<p className="text-sm">Copy link</p>
 									</li>
 								</ul>
 							</div>

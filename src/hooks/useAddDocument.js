@@ -19,10 +19,10 @@ export const useAddDocument = () => {
 		try {
 			await addDoc(collection(db, col), {
 				name: newAlbum,
-				timestamp: serverTimestamp(),
 				uid: user.uid,
 				images: selectedImages,
 				shareableLink: uuidv4() + "-" + uuidv4(),
+				timestamp: serverTimestamp(),
 			});
 
 			setSuccess(true);
